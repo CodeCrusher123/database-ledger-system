@@ -31,8 +31,9 @@ export const useAuthStore = create<AuthStore>()((set) => ({
   initAuthListener: () => {
     set({ status: { state: "loading" } });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      if (session && session.user) {
+    // 1. IMMEDIATE CHECK: Does a session exist currently ?
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
         set({
           status: {
             state: "authenticated",
@@ -44,5 +45,30 @@ export const useAuthStore = create<AuthStore>()((set) => ({
         set({ status: { state: "unauthenticated" } });
       }
     });
+
+    // 2. PERMANENT LISTENER: Notify when SESSION changes later
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log(event);
+
+      // event can be: INITIAL_SESSION, SIGNED_IN, SIGNED_OUT, TOKEN_REFRESHED, etc.
+      if (session?.user) {
+        set({
+          status: {
+            state: "authenticated",
+            user: session.user,
+            session: session,
+          },
+        });
+      } else {
+        set({ status: { state: "unauthenticated" } });
+      }
+    });
+
+    // CLEAN UP: return a function to unsubscribe
+    return () => {
+      subscription.unsubscribe();
+    };
   },
 }));
