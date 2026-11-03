@@ -3,6 +3,10 @@ import type {
   Transactions,
   Categories,
   LedgerStore,
+  SelectCategory,
+  AccountType,
+  TransactionType,
+  CategoriesType,
 } from "../utilities/LedgerTypes";
 import { supabase } from "../lib/supabaseClient";
 import { create } from "zustand";
@@ -22,9 +26,9 @@ function makeState<T>(
 }
 
 export const useLedgerStore = create<LedgerStore>()((set, get) => ({
-  accounts: { state: "idle" },
-  transactions: { state: "idle" },
-  categories: { state: "idle" },
+  accounts: { state: "idle" } as AccountType,
+  transactions: { state: "idle" } as TransactionType,
+  categories: { state: "idle" } as CategoriesType,
 
   getBalance: (accountId: string) => {
     const txState = get().transactions;
@@ -57,8 +61,135 @@ export const useLedgerStore = create<LedgerStore>()((set, get) => ({
     });
   },
 
-  addTransaction: async (_input) => {
-    // TODO: implement Supabase insert + local state push for tea flow
+  addTransaction: async (input) => {
+    // 1. Get user for owner_id
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return { error: new Error("No user") as any }; // For SAVE fails UI fallback
+    }
+    const insertData = {
+      ...input, // account_id, amount_cents, category_id, description
+      owner_id: user.id, // 5th field
+    };
+    // 2. Insert and get back full row
+    const { data: newTransaction, error } = await supabase
+      .from("transactions")
+      .insert(insertData)
+      .select()
+      .single();
+
+    // 3. If error, return it (don't push)
+    if (error) {
+      return { error };
+    }
+    // 4. If success, push to local Zustand state
+    const current = get().transactions;
+    if (current.state === "loaded" && newTransaction) {
+      set({
+        transactions: {
+          state: "loaded",
+          data: [...current.data, newTransaction as Transactions],
+        },
+      });
+    } else if (newTransaction) {
+      set({
+        transactions: {
+          state: "loaded",
+          data: [newTransaction as Transactions],
+        },
+      });
+    }
+    return { error: null };
+  },
+
+  addAccount: async (input) => {
+    if (input.name.trim().length === 0) {
+      return { error: new Error("Name cannot be empty") as any };
+    }
+    if (input.name.trim().length > 50) {
+      return {
+        error: new Error("Too long name. Please use a shorter one") as any,
+      };
+    }
+
+    // Fetch USER ID from supabase
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return { error: new Error("No user") as any }; // For SAVE fails UI fallback
+    }
+
+    const insertData = { name: input.name.trim(), owner_id: user.id };
+
+    const { data: newAccount, error } = await supabase
+      .from("accounts")
+      .insert(insertData)
+      .select()
+      .single();
+
+    if (error) {
+      return { error };
+    }
+
+    const current = get().accounts;
+    if (current.state === "loaded" && newAccount) {
+      set({
+        accounts: {
+          state: "loaded",
+          data: [...current.data, newAccount as Accounts],
+        },
+      });
+    } else if (newAccount) {
+      set({
+        accounts: {
+          state: "loaded",
+          data: [newAccount as Accounts],
+        },
+      });
+    }
+
+    return { error: null };
+  },
+
+  addCategory: async (name: SelectCategory) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return { error: new Error("No user") as any };
+    }
+
+    const insertData = { name: name.trim(), owner_id: user.id };
+
+    const { data: newCategory, error } = await supabase
+      .from("categories")
+      .insert(insertData)
+      .select()
+      .single();
+
+    if (error) {
+      return { error };
+    }
+
+    const current = get().categories;
+    if (current.state === "loaded" && newCategory) {
+      set({
+        categories: {
+          state: "loaded",
+          data: [...current.data, newCategory],
+        },
+      });
+    } else if (newCategory) {
+      set({
+        categories: {
+          state: "loaded",
+          data: [newCategory as Categories],
+        },
+      });
+    }
     return { error: null };
   },
 }));

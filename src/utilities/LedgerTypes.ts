@@ -49,6 +49,10 @@ export type AddTransactionInput = {
   description: string | null;
 };
 
+export type AddAccountInput = {
+  name: string;
+};
+
 export interface LedgerStore {
   // 1. States
   accounts: AccountType;
@@ -61,4 +65,17 @@ export interface LedgerStore {
   // 3. Actions
   fetchAll: () => Promise<void>;
   addTransaction: (input: AddTransactionInput) => Promise<{ error: Error }>;
+  addAccount: (name: AddAccountInput) => Promise<{ error: Error }>;
+  addCategory: (name: SelectCategory) => Promise<{ error: Error }>;
 }
+
+export type SelectCategory =
+  | "foods and drink"
+  | "transport"
+  | "bill"
+  | "medical"
+  | "entertainment"
+  | "housing"
+  | "emergency"
+  | "clothing"
+  | "others";
