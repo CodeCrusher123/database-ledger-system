@@ -1,17 +1,14 @@
-// A SIMPLE FUNCTION TO ESTABLISH SERVER CONNECTION WITH FRONTEND
-// PROPER CODE IS STILL IN DEVELOPMENT , WILL BE UPDATED SOON
-// CURRENTLY FOCUSING ON LEARNING THE ACTUAL SUPABASE DATABASE
-
+// Updated for LedgerPulse real tables
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 
-interface ProjectItem {
+interface AccountItem {
   id: string;
   name: string;
 }
 
 export function DashboardDataViewer() {
-  const [items, setItems] = useState<ProjectItem[]>([]);
+  const [items, setItems] = useState<AccountItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,7 +17,7 @@ export function DashboardDataViewer() {
       try {
         setLoading(true);
         const { data, error: dbError } = await supabase
-          .from("test_items")
+          .from("accounts") // <- changed from test_items
           .select("id, name");
 
         if (dbError) throw dbError;
@@ -29,7 +26,7 @@ export function DashboardDataViewer() {
         if (err instanceof Error) {
           setError(err.message || "Something went wrong");
         } else if (err && typeof err === "object" && "message" in err) {
-          setError(err.message);
+          setError((err as any).message);
         } else {
           setError("Unknown error occurred: " + err);
         }
@@ -48,10 +45,11 @@ export function DashboardDataViewer() {
     <div
       style={{ border: "1px solid #ccc", padding: "1rem", borderRadius: "8px" }}
     >
-      <h3>Live Database Rows:</h3>
+      <h3>Live Database Rows (accounts):</h3>
       {items.length === 0 ? (
         <p>
-          Connected to Supabase! (Table is empty or hasn't been created yet)
+          Connected to Supabase! Accounts table is empty (expected for new user)
+          or RLS is working.
         </p>
       ) : (
         <ul>

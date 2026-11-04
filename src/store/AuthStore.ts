@@ -53,6 +53,11 @@ export const useAuthStore = create<AuthStore>()((set) => ({
       console.log(event);
 
       // event can be: INITIAL_SESSION, SIGNED_IN, SIGNED_OUT, TOKEN_REFRESHED, etc.
+      if (event === "PASSWORD_RECOVERY" && session?.user) {
+        set({
+          status: { state: "recovery", user: session.user, session: session },
+        });
+      }
       if (session?.user) {
         set({
           status: {

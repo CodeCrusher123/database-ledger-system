@@ -3,6 +3,7 @@ import type { User, Session } from "@supabase/supabase-js";
 export type AuthState =
   | { state: "loading" }
   | { state: "authenticated"; user: User; session: Session }
+  | { state: "recovery"; user: User; session: Session }
   | { state: "unauthenticated" };
 
 export interface AuthStore {
