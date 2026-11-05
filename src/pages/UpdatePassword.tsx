@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useAuthStore } from "../store/AuthStore";
+import { useNavigate } from "react-router-dom";
 
 export function UpdatePassword() {
   // 1. FORM elements
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null);
 
   const status = useAuthStore((s) => s.status);
   const isRecoverySession: boolean = status.state === "recovery";
   const isAuthLoading = status.state === "loading";
+  const navigate = useNavigate();
 
   if (isAuthLoading) return <div>Checking link...</div>;
   if (!isRecoverySession)
@@ -19,18 +21,19 @@ export function UpdatePassword() {
 
   // Recovery true -> showing
   async function handleSubmit() {
+    setLocalError(null);
     if (newPassword.length < 6) {
-      setError("Password must be >=6");
+      setLocalError("Password must be >=6");
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError("Passwords don't match");
+      setLocalError("Passwords don't match");
       return;
     }
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password: newPassword });
-    if (error) setError(error.message);
-    else window.location.href = "/signin"; // or navigate("/signin")
+    if (error) setLocalError(error.message);
+    else navigate("signin");
     setLoading(false);
   }
 
@@ -48,7 +51,7 @@ export function UpdatePassword() {
         onChange={(e) => setConfirmPassword(e.target.value)}
         placeholder="Confirm"
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {localError && <p style={{ color: "red" }}>{localError}</p>}
       <button onClick={handleSubmit} disabled={loading}>
         {loading ? "Updating..." : "Update Password"}
       </button>
