@@ -57,8 +57,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
         set({
           status: { state: "recovery", user: session.user, session: session },
         });
-      }
-      if (session?.user) {
+      } else if (session?.user) {
         set({
           status: {
             state: "authenticated",

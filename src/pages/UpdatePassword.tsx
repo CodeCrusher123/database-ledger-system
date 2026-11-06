@@ -33,7 +33,10 @@ export function UpdatePassword() {
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     if (error) setLocalError(error.message);
-    else navigate("signin");
+    else {
+      await supabase.auth.signOut();
+      navigate("signin");
+    }
     setLoading(false);
   }
 
