@@ -97,9 +97,9 @@ export function SideBar({ activeTab, onTabChange }: SideBarProps) {
         ))}
       </ul>
       <h3>Accounts</h3>
-      <ul className="accounts-container">
+      <div className="accounts-container">
         {<AccountMenu input={accounts} getBalance={getBalance} />}
-      </ul>
+      </div>
     </div>
   );
 }
