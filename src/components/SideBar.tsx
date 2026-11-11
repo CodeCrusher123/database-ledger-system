@@ -11,11 +11,15 @@ export const menuArray: string[] = [
 export type SideBarProps = {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  selectedAccountId: string | null;
+  onSelectAccount: (id: string) => void;
 };
 
 export type AccountMenuProps = {
   input: AccountType;
   getBalance: (id: string) => number;
+  selectedAccountId: string | null;
+  onSelectAccount: (id: string) => void;
 };
 
 function assertNever(x: never): never {
@@ -25,14 +29,11 @@ function assertNever(x: never): never {
 export const AccountMenu: React.FC<AccountMenuProps> = ({
   input,
   getBalance,
+  selectedAccountId,
+  onSelectAccount,
 }) => {
   switch (input.state) {
     case "idle":
-      return (
-        <ul>
-          <li>Loading accounts...</li>
-        </ul>
-      );
     case "loading":
       return (
         <ul>
@@ -60,7 +61,14 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
         return (
           <ul>
             {input.data.map((acc) => (
-              <li key={acc.id}>
+              <li
+                key={acc.id}
+                onClick={() => onSelectAccount(acc.id)}
+                style={{
+                  background:
+                    acc.id === selectedAccountId ? "lightblue" : "transparent",
+                }}
+              >
                 {acc.name} - Rs.{getBalance(acc.id) / 100}
               </li>
             ))}
@@ -69,16 +77,17 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
       }
     }
     default: {
-      return (
-        <ul>
-          <li>{assertNever(input)}</li>
-        </ul>
-      );
+      return assertNever(input);
     }
   }
 };
 
-export function SideBar({ activeTab, onTabChange }: SideBarProps) {
+export function SideBar({
+  activeTab,
+  onTabChange,
+  selectedAccountId,
+  onSelectAccount,
+}: SideBarProps) {
   const accounts = useLedgerStore((s) => s.accounts);
   const getBalance = useLedgerStore((s) => s.getBalance);
   return (
@@ -98,7 +107,14 @@ export function SideBar({ activeTab, onTabChange }: SideBarProps) {
       </ul>
       <h3>Accounts</h3>
       <div className="accounts-container">
-        {<AccountMenu input={accounts} getBalance={getBalance} />}
+        {
+          <AccountMenu
+            input={accounts}
+            getBalance={getBalance}
+            selectedAccountId={selectedAccountId}
+            onSelectAccount={onSelectAccount}
+          />
+        }
       </div>
     </div>
   );
