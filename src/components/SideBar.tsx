@@ -67,9 +67,10 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
                 style={{
                   background:
                     acc.id === selectedAccountId ? "lightblue" : "transparent",
+                  cursor: "pointer",
                 }}
               >
-                {acc.name} - Rs.{getBalance(acc.id) / 100}
+                {acc.name} - ₹{getBalance(acc.id) / 100}
               </li>
             ))}
           </ul>
