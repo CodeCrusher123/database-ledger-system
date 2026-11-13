@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { useLedgerStore } from "../store/LedgerStore";
-import type { SelectCategory } from "../utilities/LedgerTypes";
 
 interface TransactionProps {
   selectedAccountId: string | null;
@@ -27,7 +26,7 @@ export function Transactions({
     const filtered = selectedAccountId
       ? transactions.data.filter((acc) => acc.account_id === selectedAccountId)
       : transactions.data;
-    return [...filtered];
+    return filtered;
   }, [selectedAccountId, transactions]);
 
   const categoryFilter = useMemo(() => {
@@ -44,6 +43,17 @@ export function Transactions({
 
   return (
     <div className="transactions-layout">
+      {/*Top Header section*/}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <span style={{ display: "flex", flexDirection: "column" }}>
+          <h2>Transactions</h2>
+          <p>Showing {categoryFilter.length} transactions</p>
+        </span>
+        {/*Placeholder for Transaction button*/}
+        <button>Add Transaction</button>
+      </div>
+
+      {/*Filter/Dropdown section*/}
       <div className="filter-container">
         <select
           value={selectedAccountId ?? ""}
@@ -75,6 +85,26 @@ export function Transactions({
           ))}
         </select>
       </div>
+
+      {/*Main Transaction section*/}
+      <ul className="transaction-container">
+        {transactions.state === "idle" && <p>Loading Transactions...</p>}
+        {transactions.state === "loading" && <p>Loading Transactions...</p>}
+        {transactions.state === "error" && (
+          <p>Error occurred while loading Transactions</p>
+        )}
+        {transactions.state === "loaded" && allTransactions.length === 0 && (
+          <p>No Transactions to show. Add a transaction</p>
+        )}
+        {transactions.state === "loaded" &&
+          allTransactions.length !== 0 &&
+          categoryFilter.map((item) => (
+            <li key={item.id}>
+              {item.account_id} {item.amount_cents / 100} {item.description}{" "}
+              {item.transaction_date}
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }

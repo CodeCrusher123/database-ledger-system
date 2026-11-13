@@ -45,7 +45,7 @@ export function Dashboard() {
     const filtered = selectedAccountId
       ? transactions.data.filter((t) => t.account_id === selectedAccountId)
       : transactions.data;
-    return [...filtered].slice(0, 6);
+    return filtered.slice(0, 6);
   }, [transactions, selectedAccountId]);
 
   const isLoading = accounts.state === "idle" || accounts.state === "loading";
