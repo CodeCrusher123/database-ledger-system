@@ -22,7 +22,7 @@ export type AccountMenuProps = {
   onSelectAccount: (id: string) => void;
 };
 
-function assertNever(x: never): never {
+export function assertNever(x: never): never {
   throw new Error(`Unexpected error: ${x}`);
 }
 

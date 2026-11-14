@@ -1,13 +1,66 @@
 import { useState, useMemo } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { useLedgerStore } from "../store/LedgerStore";
+import type { Transactions, TransactionType } from "../utilities/LedgerTypes";
+import { assertNever } from "./SideBar";
 
 interface TransactionProps {
   selectedAccountId: string | null;
   setSelectedAccountId: Dispatch<SetStateAction<string | null>>;
 }
 
-export function Transactions({
+interface TransactionCardProps {
+  input: TransactionType;
+  allTransactions: Transactions[];
+  categoryFilter: Transactions[];
+}
+
+export function TransactionCard({
+  input,
+  allTransactions,
+  categoryFilter,
+}: TransactionCardProps) {
+  switch (input.state) {
+    case "idle":
+      return <p>No transactions loaded yet.</p>;
+    case "loading":
+      return <p>Loading Transaction...</p>;
+
+    case "error":
+      return <p>Couldn't load transactions. Please try again.</p>;
+
+    case "loaded": {
+      if (allTransactions.length === 0) {
+        return (
+          <p>No transactions yet. Add your first transaction to get started.</p>
+        );
+      } else if (categoryFilter.length === 0) {
+        return (
+          <p>
+            No transactions match your selected filter. Try changing or clearing
+            them.
+          </p>
+        );
+      } else {
+        return (
+          <ul>
+            {categoryFilter.map((item) => (
+              <li key={item.id}>
+                {item.amount_cents / 100} {item.transaction_date}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+    }
+
+    default: {
+      return assertNever(input);
+    }
+  }
+}
+
+export function TransactionsPage({
   selectedAccountId,
   setSelectedAccountId,
 }: TransactionProps) {
@@ -16,10 +69,7 @@ export function Transactions({
   const categories = useLedgerStore((s) => s.categories);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const availableAccounts = useMemo(() => {
-    if (accounts.state !== "loaded") return [];
-    return accounts.data;
-  }, [accounts]);
+  const availableAccounts = accounts.state === "loaded" ? accounts.data : [];
 
   const allTransactions = useMemo(() => {
     if (transactions.state !== "loaded") return [];
@@ -36,10 +86,7 @@ export function Transactions({
     );
   }, [allTransactions, selectedCategory]);
 
-  const categoryList = useMemo(() => {
-    if (categories.state !== "loaded") return [];
-    return categories.data;
-  }, [categories]);
+  const categoryList = categories.state == "loaded" ? categories.data : [];
 
   return (
     <div className="transactions-layout">
@@ -87,24 +134,13 @@ export function Transactions({
       </div>
 
       {/*Main Transaction section*/}
-      <ul className="transaction-container">
-        {transactions.state === "idle" && <p>Loading Transactions...</p>}
-        {transactions.state === "loading" && <p>Loading Transactions...</p>}
-        {transactions.state === "error" && (
-          <p>Error occurred while loading Transactions</p>
-        )}
-        {transactions.state === "loaded" && allTransactions.length === 0 && (
-          <p>No Transactions to show. Add a transaction</p>
-        )}
-        {transactions.state === "loaded" &&
-          allTransactions.length !== 0 &&
-          categoryFilter.map((item) => (
-            <li key={item.id}>
-              {item.account_id} {item.amount_cents / 100} {item.description}{" "}
-              {item.transaction_date}
-            </li>
-          ))}
-      </ul>
+      <div className="transaction-container">
+        <TransactionCard
+          input={transactions}
+          allTransactions={allTransactions}
+          categoryFilter={categoryFilter}
+        />
+      </div>
     </div>
   );
 }
