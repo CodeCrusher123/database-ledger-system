@@ -1,13 +1,8 @@
 import { useState, useMemo } from "react";
-import type { Dispatch, SetStateAction } from "react";
-import { useLedgerStore } from "../store/LedgerStore";
 import type { Transactions, TransactionType } from "../utilities/LedgerTypes";
 import { assertNever } from "./SideBar";
-
-interface TransactionProps {
-  selectedAccountId: string | null;
-  setSelectedAccountId: Dispatch<SetStateAction<string | null>>;
-}
+import type { OutletContextType } from "./Dashboard";
+import { useOutletContext } from "react-router-dom";
 
 interface TransactionCardProps {
   input: TransactionType;
@@ -60,13 +55,14 @@ export function TransactionCard({
   }
 }
 
-export function TransactionsPage({
-  selectedAccountId,
-  setSelectedAccountId,
-}: TransactionProps) {
-  const accounts = useLedgerStore((s) => s.accounts);
-  const transactions = useLedgerStore((s) => s.transactions);
-  const categories = useLedgerStore((s) => s.categories);
+export function TransactionsPage() {
+  const {
+    accounts,
+    transactions,
+    categories,
+    selectedAccountId,
+    setSelectedAccountId,
+  } = useOutletContext<OutletContextType>();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const availableAccounts = accounts.state === "loaded" ? accounts.data : [];
@@ -74,7 +70,9 @@ export function TransactionsPage({
   const allTransactions = useMemo(() => {
     if (transactions.state !== "loaded") return [];
     const filtered = selectedAccountId
-      ? transactions.data.filter((acc) => acc.account_id === selectedAccountId)
+      ? transactions.data.filter(
+          (transaction) => transaction.account_id === selectedAccountId,
+        )
       : transactions.data;
     return filtered;
   }, [selectedAccountId, transactions]);
