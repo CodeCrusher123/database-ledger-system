@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
 import { useLedgerStore } from "../store/LedgerStore";
 import { useOutletContext } from "react-router-dom";
+import "../styles/Dashboard.css";
 import type {
   AccountType,
   CategoriesType,
@@ -13,8 +14,8 @@ export type OutletContextType = {
   accounts: AccountType;
   categories: CategoriesType;
   transactions: TransactionType;
-  accountMap: Map<string, string>;
-  categoryMap: Map<string, string>;
+  accountsMap: Map<string, string>;
+  categoriesMap: Map<string, string>;
   selectedAccountId: string | null;
   setSelectedAccountId: Dispatch<SetStateAction<string | null>>;
 };
@@ -61,90 +62,92 @@ export function Dashboard() {
   const isLoading = accounts.state === "idle" || accounts.state === "loading";
 
   return (
-    <div className="dashboard-layout">
-      <main className="dashboard-main">
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h2>Dashboard</h2>
-          <button onClick={handleSignOut}>Sign Out</button>
+    <main className="dashboard-main">
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <h2>Dashboard</h2>
+        <button onClick={handleSignOut}>Sign Out</button>
+      </div>
+
+      {/* 1. Total Balance */}
+      {isLoading ? (
+        <div className="card skeleton-card">
+          <div className="skeleton-line skeleton-title" />
+          <div className="skeleton-line skeleton-big" />
+          <div className="skeleton-line skeleton-small" />
         </div>
-
-        {/* 1. Total Balance */}
-        {isLoading ? (
-          <div className="card skeleton-card">
-            <div className="skeleton-line skeleton-title" />
-            <div className="skeleton-line skeleton-big" />
-            <div className="skeleton-line skeleton-small" />
-          </div>
-        ) : accounts.state === "error" ? (
-          <div className="card">Failed to load balance</div>
-        ) : (
-          <div className="card">
-            <p>{selectedAccountId ? "Account Balance" : "Total Balance"}</p>
-            <h1>Rs. {totalBalance / 100}</h1>
-            <p>
-              {selectedAccountId
-                ? "Showing selected account"
-                : `${accounts.data.length} accounts`}
-            </p>
-            {selectedAccountId && (
-              <button onClick={() => setSelectedAccountId(null)}>
-                Show all accounts
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* 2. Quick Actions - always visible */}
+      ) : accounts.state === "error" ? (
+        <div className="card">Failed to load balance</div>
+      ) : (
         <div className="card">
-          <button>Add Transaction</button>
-          <button>Add Account</button>
-        </div>
-
-        {/* 3. Recent Transactions */}
-        <div className="card">
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h3>Recent Transactions</h3>
-            <button onClick={() => navigate("/transactions")}>
-              View all →
+          <p>{selectedAccountId ? "Account Balance" : "Total Balance"}</p>
+          <h1>Rs. {totalBalance / 100}</h1>
+          <p>
+            {selectedAccountId
+              ? "Showing selected account"
+              : `${accounts.data.length} accounts`}
+          </p>
+          {selectedAccountId && (
+            <button onClick={() => setSelectedAccountId(null)}>
+              Show all accounts
             </button>
-          </div>
-
-          {transactions.state === "idle" || transactions.state === "loading" ? (
-            <div>
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="skeleton-row">
-                  <div className="skeleton-line skeleton-medium" />
-                  <div className="skeleton-line skeleton-short" />
-                </div>
-              ))}
-            </div>
-          ) : transactions.state === "error" ? (
-            <p>Failed to load transactions</p>
-          ) : recentTransactions.length === 0 ? (
-            <p>No transactions yet. Add your first one.</p>
-          ) : (
-            <ul>
-              {recentTransactions.map((t) => (
-                <li key={t.id}>
-                  {t.description} — Rs. {t.amount_cents / 100}
-                </li>
-              ))}
-            </ul>
           )}
         </div>
+      )}
 
-        {/* 4. Reserved for later - Spending / Analytics / Budget */}
-        <div className="card">
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h3>Spending Breakdown</h3>
-            <button onClick={() => navigate("/analytics")}>
-              View analytics →
-            </button>
-          </div>
-          <p>Coming soon — chart will go here.</p>
-          <button onClick={() => navigate("/budget")}>Go to Budget →</button>
+      {/* 2. Quick Actions - always visible */}
+      <div className="card">
+        <button>Add Transaction</button>
+        <button>Add Account</button>
+      </div>
+
+      {/* 3. Recent Transactions */}
+      <div className="card">
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h3>Recent Transactions</h3>
+          <button
+            onClick={() => {
+              navigate("/transactions");
+            }}
+          >
+            View all →
+          </button>
         </div>
-      </main>
-    </div>
+
+        {transactions.state === "idle" || transactions.state === "loading" ? (
+          <div>
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="skeleton-row">
+                <div className="skeleton-line skeleton-medium" />
+                <div className="skeleton-line skeleton-short" />
+              </div>
+            ))}
+          </div>
+        ) : transactions.state === "error" ? (
+          <p>Failed to load transactions</p>
+        ) : recentTransactions.length === 0 ? (
+          <p>No transactions yet. Add your first one.</p>
+        ) : (
+          <ul>
+            {recentTransactions.map((t) => (
+              <li key={t.id}>
+                {t.description} — Rs. {t.amount_cents / 100}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* 4. Reserved for later - Spending / Analytics / Budget */}
+      <div className="card">
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h3>Spending Breakdown</h3>
+          <button onClick={() => navigate("/analytics")}>
+            View analytics →
+          </button>
+        </div>
+        <p>Coming soon — chart will go here.</p>
+        <button onClick={() => navigate("/budget")}>Go to Budget →</button>
+      </div>
+    </main>
   );
 }

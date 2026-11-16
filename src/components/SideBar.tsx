@@ -1,16 +1,20 @@
+import { NavLink } from "react-router-dom";
 import { useLedgerStore } from "../store/LedgerStore";
 import type { AccountType } from "../utilities/LedgerTypes";
+import "../styles/SideBar.css";
 
-export const menuArray: string[] = [
-  "Dashboard",
-  "Transactions",
-  "Analytics",
-  "Budget",
+// Change: menu now has label + path, not just string
+export const menuArray = [
+  { label: "Dashboard", path: "/dashboard" },
+  { label: "Transactions", path: "/transactions" },
+  { label: "Analytics", path: "/analytics" },
+  { label: "Budget", path: "/budget" },
 ];
 
 export type SideBarProps = {
-  activeTab: string;
-  onTabChange: (tab: string) => void;
+  // Delete these two — no longer needed
+  // activeTab: string;
+  // onTabChange: (tab: string) => void;
   selectedAccountId: string | null;
   onSelectAccount: (id: string) => void;
 };
@@ -32,6 +36,7 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
   selectedAccountId,
   onSelectAccount,
 }) => {
+  // ... your AccountMenu code stays exactly the same, no change ...
   switch (input.state) {
     case "idle":
     case "loading":
@@ -40,14 +45,12 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
           <li>Loading accounts...</li>
         </ul>
       );
-
     case "error":
       return (
         <ul>
           <li>Failed to load accounts</li>
         </ul>
       );
-
     case "loaded": {
       if (input.data.length === 0) {
         return (
@@ -83,12 +86,7 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
   }
 };
 
-export function SideBar({
-  activeTab,
-  onTabChange,
-  selectedAccountId,
-  onSelectAccount,
-}: SideBarProps) {
+export function SideBar({ selectedAccountId, onSelectAccount }: SideBarProps) {
   const accounts = useLedgerStore((s) => s.accounts);
   const getBalance = useLedgerStore((s) => s.getBalance);
   return (
@@ -96,26 +94,32 @@ export function SideBar({
       <h2>LedgerPulse</h2>
       <ul className="menu-items-container">
         {menuArray.map((item) => (
-          <li
-            key={item}
-            className="menu-item"
-            style={{ background: item === activeTab ? "blue" : "transparent" }}
-            onClick={() => onTabChange(item)}
-          >
-            {item}
+          <li key={item.label} className="menu-item">
+            <NavLink
+              to={item.path}
+              style={({ isActive }) => ({
+                background: isActive ? "blue" : "transparent",
+                cursor: "pointer",
+                display: "block",
+                color: isActive ? "white" : "inherit",
+                textDecoration: "none",
+                padding: "8px 12px",
+                borderRadius: "8px",
+              })}
+            >
+              {item.label}
+            </NavLink>
           </li>
         ))}
       </ul>
       <h3>Accounts</h3>
       <div className="accounts-container">
-        {
-          <AccountMenu
-            input={accounts}
-            getBalance={getBalance}
-            selectedAccountId={selectedAccountId}
-            onSelectAccount={onSelectAccount}
-          />
-        }
+        <AccountMenu
+          input={accounts}
+          getBalance={getBalance}
+          selectedAccountId={selectedAccountId}
+          onSelectAccount={onSelectAccount}
+        />
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import { ResetPassword } from "./pages/ResetPassword";
 import { UpdatePassword } from "./pages/UpdatePassword";
 import { Dashboard } from "./components/Dashboard";
 import { TransactionsPage } from "./components/Transactions";
+import { Analytics } from "./components/Analytics";
+import { Budget } from "./components/Budget";
 import "./App.css";
 import { useEffect } from "react";
 import { Layout } from "./layout/Layout";
@@ -26,9 +28,14 @@ function App() {
         <Route path="/update-password" element={<UpdatePassword />} />
 
         {/*App PAGES*/}
-        <Route element={<Layout />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/transactions" element={<TransactionsPage />} />
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/transactions" element={<TransactionsPage />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="budget" element={<Budget />} />
+        </Route>
+
+        {/*Default and Fallback*/}
         <Route path="/" element={<Navigate to="/signin" />} />
         <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>

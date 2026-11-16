@@ -1,0 +1,57 @@
+/* --- SideBar --- */
+.sidebar-container {
+  width: 260px;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.sidebar-container h2 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.menu-items-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-item {
+  list-style: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.menu-item a {
+  font-weight: 500;
+}
+
+.accounts-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accounts-container li {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #f9fafb;
+  font-size: 14px;
+}
