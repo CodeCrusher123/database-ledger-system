@@ -1,3 +1,19 @@
+:root {
+  --bg: #f7f3ea;
+  --surface: #ffffff;
+  --primary: #0f3d2e;
+  --primary-hover: #164e3a;
+  --accent: #c9a86a;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e8e0d5;
+  --input-bg: #fbfaf7;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+}
+
 /* --- Transactions Page --- */
 .transactions-layout {
   padding: 24px;
@@ -11,6 +27,33 @@
   font-family: "Fraunces", serif;
   margin: 0;
 }
+.transactions-header button {
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--surface);
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.transactions-header button:hover {
+  background: var(--primary-hover);
+}
+
+.transactions-header button:active {
+  opacity: 0.9;
+}
+
+.transactions-header button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 .filter-container {
   display: flex;
@@ -19,9 +62,9 @@
 
 .filter-container select {
   padding: 8px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   cursor: pointer;
   font-size: 14px;
 }
@@ -29,7 +72,7 @@
 .transaction-container table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -38,17 +81,17 @@
 .transaction-container th {
   text-align: left;
   padding: 12px 16px;
-  background: #f8f9fa;
+  background: var(--bg);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #666;
-  border-bottom: 1px solid #eee;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
 }
 
 .transaction-container td {
   padding: 12px 16px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border);
   font-size: 14px;
 }
 
@@ -58,12 +101,12 @@
 }
 
 .amount-negative {
-  color: #d32f2f;
+  color: var(--error);
   font-weight: 600;
 }
 
 .amount-positive {
-  color: #2e7d32;
+  color: var(--success);
   font-weight: 600;
 }
 
@@ -71,19 +114,19 @@
 .skeleton-table-transactions {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   overflow: hidden;
 }
 
 .skeleton-row-transactions td {
   padding: 12px 16px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border);
 }
 
 .skeleton-bar-transactions {
   height: 14px;
-  background: #eee;
+  background: var(--border);
   border-radius: 6px;
   animation: pulse 1.2s ease-in-out infinite;
 }

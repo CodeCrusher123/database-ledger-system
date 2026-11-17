@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
+import "../styles/Auth.css";
 
 export function SignUp() {
   const [email, setEmail] = useState("");
@@ -35,35 +36,83 @@ export function SignUp() {
   }
 
   return (
-    <div>
-      <h2>Sign Up to LedgerPulse</h2>
-      <p>your personal finance tracker</p>
+    <main className="auth-page">
+      <section className="auth-card" aria-labelledby="signup-title">
+        <header>
+          <p className="auth-logo">LedgerPulse</p>
+          <h1 id="signup-title" className="auth-title">
+            Create account
+          </h1>
+          <p className="auth-subtitle">Your personal finance tracker</p>
+        </header>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <form
+          className="auth-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSignUp();
+          }}
+        >
+          <div className="auth-field">
+            <label htmlFor="signup-email" className="auth-label">
+              Email
+            </label>
+            <input
+              id="signup-email"
+              className="auth-input"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-      {localError && <p style={{ color: "red" }}>{localError}</p>}
-      {successMsg && (
-        <p style={{ color: "green", fontWeight: 500 }}>{successMsg}</p>
-      )}
-      <button onClick={handleSignUp} disabled={loading}>
-        {loading ? "Signing up..." : "Sign Up"}
-      </button>
+          <div className="auth-field">
+            <label htmlFor="signup-password" className="auth-label">
+              Password
+            </label>
+            <input
+              id="signup-password"
+              className="auth-input"
+              type="password"
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-      <p>
-        Account exists? <Link to="/signin">Sign In</Link> |{" "}
-        <Link to="/reset">Forgot Password</Link>
-      </p>
-    </div>
+          {localError && (
+            <p className="auth-error" role="alert">
+              {localError}
+            </p>
+          )}
+          {successMsg && (
+            <p className="auth-success" role="status">
+              {successMsg}
+            </p>
+          )}
+
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? "Signing up..." : "Sign Up"}
+          </button>
+        </form>
+
+        <footer className="auth-footer">
+          <p>
+            Account exists?{" "}
+            <Link to="/signin" className="auth-link">
+              Sign In
+            </Link>
+          </p>
+          <p>
+            <Link to="/reset" className="auth-link">
+              Forgot Password
+            </Link>
+          </p>
+        </footer>
+      </section>
+    </main>
   );
 }

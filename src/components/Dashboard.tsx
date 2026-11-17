@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
 import { useLedgerStore } from "../store/LedgerStore";
 import { useOutletContext } from "react-router-dom";
+import { LogOut } from "lucide-react";
 import "../styles/Dashboard.css";
 import type {
   AccountType,
@@ -65,7 +66,14 @@ export function Dashboard() {
     <main className="dashboard-main">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h2>Dashboard</h2>
-        <button onClick={handleSignOut}>Sign Out</button>
+        <button
+          type="button"
+          className="signout-button"
+          onClick={handleSignOut}
+        >
+          <LogOut size={16} aria-hidden="true" />
+          <span>Sign Out</span>
+        </button>
       </div>
 
       {/* 1. Total Balance */}

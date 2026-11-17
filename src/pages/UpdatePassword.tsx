@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useAuthStore } from "../store/AuthStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "../styles/Auth.css";
 
 export function UpdatePassword() {
   // 1. FORM elements
@@ -41,23 +42,74 @@ export function UpdatePassword() {
   }
 
   return (
-    <div>
-      <input
-        type="password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-        placeholder="New password"
-      />
-      <input
-        type="password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        placeholder="Confirm"
-      />
-      {localError && <p style={{ color: "red" }}>{localError}</p>}
-      <button onClick={handleSubmit} disabled={loading}>
-        {loading ? "Updating..." : "Update Password"}
-      </button>
-    </div>
+    <main className="auth-page">
+      <section className="auth-card" aria-labelledby="update-title">
+        <header>
+          <p className="auth-logo">LedgerPulse</p>
+          <h1 id="update-title" className="auth-title">
+            Choose a new password
+          </h1>
+          <p className="auth-subtitle">
+            Make sure it's something you'll remember
+          </p>
+        </header>
+
+        <form
+          className="auth-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <div className="auth-field">
+            <label htmlFor="update-new-password" className="auth-label">
+              New password
+            </label>
+            <input
+              id="update-new-password"
+              className="auth-input"
+              type="password"
+              placeholder="Create a new password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="auth-field">
+            <label htmlFor="update-confirm-password" className="auth-label">
+              Confirm password
+            </label>
+            <input
+              id="update-confirm-password"
+              className="auth-input"
+              type="password"
+              placeholder="Confirm new password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {localError && (
+            <p className="auth-error" role="alert">
+              {localError}
+            </p>
+          )}
+
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? "Updating..." : "Update Password"}
+          </button>
+        </form>
+
+        <footer className="auth-footer">
+          <p>
+            <Link to="/signin" className="auth-link">
+              Back to Sign In
+            </Link>
+          </p>
+        </footer>
+      </section>
+    </main>
   );
 }

@@ -22,17 +22,17 @@ export function TransactionCard({
 }: TransactionCardProps) {
   switch (input.state) {
     case "idle":
-      return <p>No transactions loaded yet.</p>;
+      return <p role="status">No transactions loaded yet.</p>;
     case "loading":
       return (
-        <table className="skeleton-table-transactions">
+        <table className="skeleton-table-transactions" aria-hidden="true">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Account</th>
-              <th>Amount</th>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Category</th>
+              <th scope="col">Account</th>
+              <th scope="col">Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -61,16 +61,18 @@ export function TransactionCard({
       );
 
     case "error":
-      return <p>Couldn't load transactions. Please try again.</p>;
+      return <p role="alert">Couldn't load transactions. Please try again.</p>;
 
     case "loaded": {
       if (allTransactions.length === 0) {
         return (
-          <p>No transactions yet. Add your first transaction to get started.</p>
+          <p role="status">
+            No transactions yet. Add your first transaction to get started.
+          </p>
         );
       } else if (transactionsFilter.length === 0) {
         return (
-          <p>
+          <p role="status">
             No transactions match your selected filter. Try changing or clearing
             them.
           </p>
@@ -78,13 +80,14 @@ export function TransactionCard({
       } else {
         return (
           <table>
+            <caption className="sr-only">List of transactions</caption>
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Account</th>
-                <th>Amount</th>
+                <th scope="col">Date</th>
+                <th scope="col">Description</th>
+                <th scope="col">Category</th>
+                <th scope="col">Account</th>
+                <th scope="col">Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -162,52 +165,67 @@ export function TransactionsPage() {
   const categoryList = categories.state == "loaded" ? categories.data : [];
 
   return (
-    <div className="transactions-layout">
+    <section
+      className="transactions-layout"
+      aria-labelledby="transactions-title"
+    >
       {/*Top Header section*/}
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <span style={{ display: "flex", flexDirection: "column" }}>
-          <h2>Transactions</h2>
+      <header className="transactions-header">
+        <div>
+          <h2 id="transactions-title">Transactions</h2>
           <p>Showing {transactionsFilter.length} transactions</p>
-        </span>
+        </div>
         {/*Placeholder for Transaction button*/}
-        <button>Add Transaction</button>
-      </div>
+        <button type="button">Add Transaction</button>
+      </header>
 
       {/*Filter/Dropdown section*/}
-      <div className="filter-container">
-        <select
-          value={selectedAccountId ?? ""}
-          onChange={(e) => {
-            const value = e.target.value;
-            setSelectedAccountId(value === "" ? null : value);
-          }}
-        >
-          <option value="">All Accounts</option>
-          {availableAccounts.map((acc) => (
-            <option value={acc.id} key={acc.id}>
-              {acc.name}
-            </option>
-          ))}
-        </select>
+      <section className="filter-container" aria-label="Filter transactions">
+        <div className="filter-field">
+          <label htmlFor="filter-account" className="filter-label">
+            Account
+          </label>
+          <select
+            id="filter-account"
+            value={selectedAccountId ?? ""}
+            onChange={(e) => {
+              const value = e.target.value;
+              setSelectedAccountId(value === "" ? null : value);
+            }}
+          >
+            <option value="">All Accounts</option>
+            {availableAccounts.map((acc) => (
+              <option value={acc.id} key={acc.id}>
+                {acc.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <select
-          value={selectedCategory ?? ""}
-          onChange={(e) => {
-            const value = e.target.value;
-            setSelectedCategory(value === "" ? null : value);
-          }}
-        >
-          <option value="">All</option>
-          {categoryList.map((cat) => (
-            <option value={cat.id} key={cat.id}>
-              {cat.name}
-            </option>
-          ))}
-        </select>
-      </div>
+        <div className="filter-field">
+          <label htmlFor="filter-category" className="filter-label">
+            Category
+          </label>
+          <select
+            id="filter-category"
+            value={selectedCategory ?? ""}
+            onChange={(e) => {
+              const value = e.target.value;
+              setSelectedCategory(value === "" ? null : value);
+            }}
+          >
+            <option value="">All</option>
+            {categoryList.map((cat) => (
+              <option value={cat.id} key={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </section>
 
       {/*Main Transaction section*/}
-      <div className="transaction-container">
+      <section className="transaction-container" aria-label="Transactions list">
         <TransactionCard
           input={transactions}
           allTransactions={allTransactions}
@@ -215,7 +233,7 @@ export function TransactionsPage() {
           accountsMap={accountsMap}
           categoriesMap={categoriesMap}
         />
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
