@@ -1,7 +1,22 @@
+:root {
+  --bg: #f7f3ea;
+  --surface: #ffffff;
+  --primary: #0f3d2e;
+  --primary-hover: #164e3a;
+  --accent: #c9a86a;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e8e0d5;
+  --input-bg: #fbfaf7;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+}
 /* --- SideBar --- */
 .sidebar-container {
   width: 260px;
-  background: #ffffff;
+  background: var(--primary);
   border-right: 1px solid #e5e7eb;
   padding: 20px;
   display: flex;
@@ -54,4 +69,11 @@
   border-radius: 8px;
   background: #f9fafb;
   font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sidebar-accounts-list {
+  display: flex;
+  justify-content: left;
+  gap: 4px;
 }

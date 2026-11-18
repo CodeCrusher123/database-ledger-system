@@ -12,9 +12,6 @@ export const menuArray = [
 ];
 
 export type SideBarProps = {
-  // Delete these two — no longer needed
-  // activeTab: string;
-  // onTabChange: (tab: string) => void;
   selectedAccountId: string | null;
   onSelectAccount: (id: string) => void;
 };
@@ -36,7 +33,6 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
   selectedAccountId,
   onSelectAccount,
 }) => {
-  // ... your AccountMenu code stays exactly the same, no change ...
   switch (input.state) {
     case "idle":
     case "loading":
@@ -65,11 +61,13 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
           <ul>
             {input.data.map((acc) => (
               <li
+                className="sidebar-accounts-list"
                 key={acc.id}
                 onClick={() => onSelectAccount(acc.id)}
                 style={{
                   background:
                     acc.id === selectedAccountId ? "lightblue" : "transparent",
+                  color: acc.id === selectedAccountId ? "#1a1a1a" : "#f7f3ea",
                   cursor: "pointer",
                 }}
               >
@@ -98,10 +96,10 @@ export function SideBar({ selectedAccountId, onSelectAccount }: SideBarProps) {
             <NavLink
               to={item.path}
               style={({ isActive }) => ({
-                background: isActive ? "blue" : "transparent",
+                background: isActive ? "#f7f3ea" : "transparent",
                 cursor: "pointer",
                 display: "block",
-                color: isActive ? "white" : "inherit",
+                color: isActive ? "#1a1a1a" : "#f7f3ea",
                 textDecoration: "none",
                 padding: "8px 12px",
                 borderRadius: "8px",

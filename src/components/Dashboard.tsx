@@ -64,7 +64,7 @@ export function Dashboard() {
 
   return (
     <main className="dashboard-main">
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="dashboard-header">
         <h2>Dashboard</h2>
         <button
           type="button"
