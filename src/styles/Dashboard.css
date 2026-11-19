@@ -12,6 +12,11 @@
   --error-bg: #fef2f2;
   --success: #15803d;
   --success-bg: #f0fdf4;
+
+  --surface-subtle: #fbfaf7;
+  --accent-soft: rgba(201, 168, 106, 0.16);
+  --accent-border: rgba(201, 168, 106, 0.45);
+  --danger-border: rgba(220, 38, 38, 0.28);
 }
 
 /* --- Dashboard Main --- */
@@ -21,44 +26,58 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .dashboard-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 26px;
+  color: var(--primary);
 }
 
 .signout-button {
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 4px 4px;
-  gap: 8px;
-  font-size: 14px;
+  gap: 7px;
+  padding: 8px 14px;
+  font-size: 13px;
   font-weight: 600;
   font-family: inherit;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  background: transparent;
-  color: var(--muted);
-  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 8px;
   cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .signout-button svg {
   flex-shrink: 0;
+  color: var(--muted);
+  transition: color 0.15s ease;
 }
 
-.signout-button span {
-  background: var(--primary);
-  color: var(--bg);
-  padding: 6px 9px;
-  border-radius: 8px;
+.signout-button:hover {
+  background: var(--error-bg);
+  border-color: var(--danger-border);
+  color: var(--error);
 }
 
-.signout-button span:hover {
-  background: var(--primary-hover);
+.signout-button:hover svg {
+  color: var(--error);
 }
 
 .card {
@@ -71,24 +90,167 @@
 .card h3 {
   margin: 0;
   font-family: "Fraunces", serif;
+  font-size: 18px;
+  color: var(--primary);
 }
 
-.card button {
-  padding: 8px 14px;
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* --- Balance Card --- */
+.balance-card {
+  background: linear-gradient(
+    135deg,
+    var(--surface) 0%,
+    var(--surface-subtle) 100%
+  );
+}
+
+.balance-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.balance-amount {
+  margin: 6px 0;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.balance-meta {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* --- Buttons --- */
+.primary-btn {
+  padding: 9px 16px;
   border-radius: 8px;
   border: 1px solid var(--primary);
   background: var(--primary);
   color: var(--surface);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
   cursor: pointer;
-  margin-right: 8px;
+  margin-right: 10px;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.card button:hover {
-  opacity: 1;
+.primary-btn:hover {
   background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
-/* --- Dashboard Skeletons --- */
+.secondary-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  margin-right: 10px;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(201, 168, 106, 0.26);
+  border-color: var(--accent);
+}
+
+.ghost-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.ghost-btn:hover {
+  background: var(--surface-subtle);
+  border-color: var(--border);
+}
+
+/* --- Recent Transactions --- */
+.recent-tx-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-tx-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.recent-tx-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tx-description {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.tx-amount {
+  font-family: monospace, monospace;
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+/* --- States & Skeletons --- */
+.empty-state-text {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.status-error-card {
+  background: var(--error-bg);
+  border-color: var(--danger-border);
+  color: var(--error);
+  font-weight: 500;
+}
+
+.status-error-text {
+  margin: 0;
+  font-size: 14px;
+  color: var(--error);
+}
+
 .skeleton-card {
   min-height: 110px;
 }
@@ -105,19 +267,24 @@
   width: 40%;
   height: 14px;
 }
+
 .skeleton-big {
   width: 30%;
   height: 28px;
 }
+
 .skeleton-small {
   width: 60%;
 }
 
-.skeleton-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
+.skeleton-medium {
+  width: 45%;
+  margin-top: 0;
+}
+
+.skeleton-short {
+  width: 20%;
+  margin-top: 0;
 }
 
 @keyframes pulse {

@@ -12,12 +12,28 @@
   --error-bg: #fef2f2;
   --success: #15803d;
   --success-bg: #f0fdf4;
+
+  --sidebar-text: #f7f3ea;
+  --sidebar-muted: rgba(247, 243, 234, 0.65);
+  --sidebar-border: rgba(201, 168, 106, 0.18);
+  --brand-accent: #e2c792;
+
+  --nav-hover-bg: rgba(247, 243, 234, 0.08);
+  --nav-active-bg: #f7f3ea;
+  --nav-active-text: #0f3d2e;
+  --nav-active-border: #c9a86a;
+
+  --account-bg: rgba(255, 255, 255, 0.04);
+  --account-hover-bg: rgba(201, 168, 106, 0.12);
+  --account-active-bg: rgba(201, 168, 106, 0.22);
+  --account-active-border: #c9a86a;
+  --account-active-text: #ffffff;
 }
-/* --- SideBar --- */
+
 .sidebar-container {
   width: 260px;
   background: var(--primary);
-  border-right: 1px solid #e5e7eb;
+  border-right: 1px solid var(--sidebar-border);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -27,6 +43,7 @@
   height: 100vh;
   overflow-y: auto;
   flex-shrink: 0;
+  color: var(--sidebar-text);
 }
 
 .sidebar-container h2 {
@@ -34,6 +51,15 @@
   font-family: "Fraunces", serif;
   font-size: 22px;
   letter-spacing: -0.5px;
+  color: var(--brand-accent);
+}
+
+.sidebar-container h3 {
+  margin: 10px 0 0 0;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sidebar-muted);
 }
 
 .menu-items-container {
@@ -48,11 +74,32 @@
 .menu-item {
   list-style: none;
   border-radius: 8px;
-  overflow: hidden;
 }
 
-.menu-item a {
+.nav-link {
+  display: block;
   font-weight: 500;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.nav-link:hover {
+  background: var(--nav-hover-bg);
+}
+
+.nav-link.active {
+  background: var(--nav-active-bg);
+  color: var(--nav-active-text);
+  border-color: var(--nav-active-border);
+  font-weight: 600;
 }
 
 .accounts-container ul {
@@ -64,16 +111,69 @@
   gap: 8px;
 }
 
-.accounts-container li {
+.sidebar-account-state {
   padding: 8px 10px;
   border-radius: 8px;
-  background: #f9fafb;
-  font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--account-bg);
+  color: var(--sidebar-muted);
+  font-size: 13px;
+}
+
+.sidebar-account-error {
+  color: var(--error);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.add-account-btn {
+  background: var(--accent);
+  color: var(--primary);
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 6px;
 }
 
 .sidebar-accounts-list {
   display: flex;
-  justify-content: left;
-  gap: 4px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--account-bg);
+  color: var(--sidebar-text);
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.sidebar-accounts-list:hover {
+  background: var(--account-hover-bg);
+}
+
+.sidebar-accounts-list.is-selected {
+  background: var(--account-active-bg);
+  border-color: var(--account-active-border);
+  color: var(--account-active-text);
+}
+
+.account-name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-balance {
+  font-family: monospace, monospace;
+  font-size: 12px;
+  opacity: 0.9;
+  flex-shrink: 0;
 }

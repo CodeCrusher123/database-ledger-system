@@ -1,9 +1,8 @@
 import { useEffect, useMemo, type Dispatch, type SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { LogOut } from "lucide-react";
 import { useAuthStore } from "../store/AuthStore";
 import { useLedgerStore } from "../store/LedgerStore";
-import { useOutletContext } from "react-router-dom";
-import { LogOut } from "lucide-react";
 import "../styles/Dashboard.css";
 import type {
   AccountType,
@@ -71,7 +70,7 @@ export function Dashboard() {
           className="signout-button"
           onClick={handleSignOut}
         >
-          <LogOut size={16} aria-hidden="true" />
+          <LogOut size={15} strokeWidth={2} aria-hidden="true" />
           <span>Sign Out</span>
         </button>
       </div>
@@ -84,18 +83,30 @@ export function Dashboard() {
           <div className="skeleton-line skeleton-small" />
         </div>
       ) : accounts.state === "error" ? (
-        <div className="card">Failed to load balance</div>
+        <div className="card status-error-card">Failed to load balance</div>
       ) : (
-        <div className="card">
-          <p>{selectedAccountId ? "Account Balance" : "Total Balance"}</p>
-          <h1>Rs. {totalBalance / 100}</h1>
-          <p>
+        <div className="card balance-card">
+          <p className="balance-label">
+            {selectedAccountId ? "Account Balance" : "Total Balance"}
+          </p>
+          <h1 className="balance-amount">
+            ₹
+            {(totalBalance / 100).toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </h1>
+          <p className="balance-meta">
             {selectedAccountId
               ? "Showing selected account"
               : `${accounts.data.length} accounts`}
           </p>
           {selectedAccountId && (
-            <button onClick={() => setSelectedAccountId(null)}>
+            <button
+              type="button"
+              className="secondary-btn"
+              onClick={() => setSelectedAccountId(null)}
+            >
               Show all accounts
             </button>
           )}
@@ -103,16 +114,22 @@ export function Dashboard() {
       )}
 
       {/* 2. Quick Actions - always visible */}
-      <div className="card">
-        <button>Add Transaction</button>
-        <button>Add Account</button>
+      <div className="card quick-actions-card">
+        <button type="button" className="primary-btn">
+          Add Transaction
+        </button>
+        <button type="button" className="secondary-btn">
+          Add Account
+        </button>
       </div>
 
       {/* 3. Recent Transactions */}
-      <div className="card">
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="card transactions-card">
+        <div className="card-header-row">
           <h3>Recent Transactions</h3>
           <button
+            type="button"
+            className="ghost-btn"
             onClick={() => {
               navigate("/transactions");
             }}
@@ -131,14 +148,23 @@ export function Dashboard() {
             ))}
           </div>
         ) : transactions.state === "error" ? (
-          <p>Failed to load transactions</p>
+          <p className="status-error-text">Failed to load transactions</p>
         ) : recentTransactions.length === 0 ? (
-          <p>No transactions yet. Add your first one.</p>
+          <p className="empty-state-text">
+            No transactions yet. Add your first one.
+          </p>
         ) : (
-          <ul>
+          <ul className="recent-tx-list">
             {recentTransactions.map((t) => (
-              <li key={t.id}>
-                {t.description} — Rs. {t.amount_cents / 100}
+              <li key={t.id} className="recent-tx-item">
+                <span className="tx-description">{t.description}</span>
+                <span className="tx-amount">
+                  ₹
+                  {(t.amount_cents / 100).toLocaleString("en-IN", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </span>
               </li>
             ))}
           </ul>
@@ -146,15 +172,25 @@ export function Dashboard() {
       </div>
 
       {/* 4. Reserved for later - Spending / Analytics / Budget */}
-      <div className="card">
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="card spending-card">
+        <div className="card-header-row">
           <h3>Spending Breakdown</h3>
-          <button onClick={() => navigate("/analytics")}>
+          <button
+            type="button"
+            className="ghost-btn"
+            onClick={() => navigate("/analytics")}
+          >
             View analytics →
           </button>
         </div>
-        <p>Coming soon — chart will go here.</p>
-        <button onClick={() => navigate("/budget")}>Go to Budget →</button>
+        <p className="empty-state-text">Coming soon — chart will go here.</p>
+        <button
+          type="button"
+          className="secondary-btn"
+          onClick={() => navigate("/budget")}
+        >
+          Go to Budget →
+        </button>
       </div>
     </main>
   );

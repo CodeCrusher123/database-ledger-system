@@ -3,7 +3,6 @@ import { useLedgerStore } from "../store/LedgerStore";
 import type { AccountType } from "../utilities/LedgerTypes";
 import "../styles/SideBar.css";
 
-// Change: menu now has label + path, not just string
 export const menuArray = [
   { label: "Dashboard", path: "/dashboard" },
   { label: "Transactions", path: "/transactions" },
@@ -38,42 +37,45 @@ export const AccountMenu: React.FC<AccountMenuProps> = ({
     case "loading":
       return (
         <ul>
-          <li>Loading accounts...</li>
+          <li className="sidebar-account-state">Loading accounts...</li>
         </ul>
       );
     case "error":
       return (
         <ul>
-          <li>Failed to load accounts</li>
+          <li className="sidebar-account-state sidebar-account-error">
+            Failed to load accounts
+          </li>
         </ul>
       );
     case "loaded": {
       if (input.data.length === 0) {
         return (
           <ul>
-            <li>
-              No accounts yet. <button>Add Account</button>
+            <li className="sidebar-account-state">
+              No accounts yet.{" "}
+              <button className="add-account-btn">Add Account</button>
             </li>
           </ul>
         );
       } else {
         return (
           <ul>
-            {input.data.map((acc) => (
-              <li
-                className="sidebar-accounts-list"
-                key={acc.id}
-                onClick={() => onSelectAccount(acc.id)}
-                style={{
-                  background:
-                    acc.id === selectedAccountId ? "lightblue" : "transparent",
-                  color: acc.id === selectedAccountId ? "#1a1a1a" : "#f7f3ea",
-                  cursor: "pointer",
-                }}
-              >
-                {acc.name} - ₹{getBalance(acc.id) / 100}
-              </li>
-            ))}
+            {input.data.map((acc) => {
+              const isSelected = acc.id === selectedAccountId;
+              return (
+                <li
+                  key={acc.id}
+                  className={`sidebar-accounts-list ${isSelected ? "is-selected" : ""}`}
+                  onClick={() => onSelectAccount(acc.id)}
+                >
+                  <span className="account-name">{acc.name}</span>
+                  <span className="account-balance">
+                    ₹{(getBalance(acc.id) / 100).toFixed(2)}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         );
       }
@@ -95,15 +97,9 @@ export function SideBar({ selectedAccountId, onSelectAccount }: SideBarProps) {
           <li key={item.label} className="menu-item">
             <NavLink
               to={item.path}
-              style={({ isActive }) => ({
-                background: isActive ? "#f7f3ea" : "transparent",
-                cursor: "pointer",
-                display: "block",
-                color: isActive ? "#1a1a1a" : "#f7f3ea",
-                textDecoration: "none",
-                padding: "8px 12px",
-                borderRadius: "8px",
-              })}
+              className={({ isActive }) =>
+                `nav-link ${isActive ? "active" : ""}`
+              }
             >
               {item.label}
             </NavLink>
