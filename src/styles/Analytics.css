@@ -1,0 +1,148 @@
+:root {
+  --bg: #f7f3ea;
+  --surface: #ffffff;
+  --primary: #0f3d2e;
+  --primary-hover: #164e3a;
+  --accent: #c9a86a;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e8e0d5;
+  --input-bg: #fbfaf7;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+
+  --surface-subtle: #fbfaf7;
+  --accent-soft: rgba(201, 168, 106, 0.16);
+  --accent-border: rgba(201, 168, 106, 0.45);
+  --danger-border: rgba(220, 38, 38, 0.28);
+}
+
+.analysis-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.analysis-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.analysis-title {
+  margin: 0;
+  font-size: 1.625rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.account-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.account-filter-btn {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.account-filter-btn:hover {
+  border-color: var(--accent-border);
+  background-color: var(--surface-subtle);
+  color: var(--text);
+}
+
+.account-filter-btn.is-active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--surface);
+}
+
+.account-filter-btn.is-active:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(15, 61, 46, 0.04);
+}
+
+.kpi-label {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.kpi-value {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.kpi-card--inflow .kpi-value {
+  color: var(--success);
+}
+
+.kpi-card--outflow .kpi-value {
+  color: var(--error);
+}
+
+.kpi-card--netflow.is-positive .kpi-value {
+  color: var(--primary);
+}
+
+.kpi-card--netflow.is-negative .kpi-value {
+  color: var(--error);
+}
+
+.kpi-card--netflow.is-neutral .kpi-value {
+  color: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .analysis-page {
+    padding: 1rem;
+  }
+
+  .kpi-value {
+    font-size: 1.45rem;
+  }
+}
