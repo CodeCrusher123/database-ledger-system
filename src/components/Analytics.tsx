@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import type { OutletContextType } from "./Dashboard";
+import { HorizontalChart } from "./HorizontalChart";
 import "../styles/Analytics.css";
 
 export function Analytics() {
@@ -88,6 +89,7 @@ export function Analytics() {
           </p>
         </article>
       </div>
+      <HorizontalChart />
     </section>
   );
 }
