@@ -151,81 +151,85 @@ export function HorizontalChart() {
   };
 
   return (
-    <div className="expense-chart-card">
-      <div className="expense-chart-header">
-        <div>
-          <h3 className="expense-chart-title">Expenses by Category</h3>
-          <p className="expense-chart-description">
-            Breakdown of your spending
-          </p>
+    <>
+      <div className="expense-chart-card">
+        <div className="expense-chart-header">
+          <div>
+            <h3 className="expense-chart-title">Expenses by Category</h3>
+            <p className="expense-chart-description">
+              Breakdown of your spending
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="expense-chart-container">
-        {chartData.length === 0 ? (
-          <div className="expense-chart-empty">No expense data available.</div>
-        ) : (
-          <ResponsiveContainer
-            width="100%"
-            height={Math.max(220, chartData.length * 55)}
-          >
-            <BarChart
-              data={chartData}
-              layout="vertical"
-              margin={{
-                top: 5,
-                right: 25,
-                left: 5,
-                bottom: 5,
-              }}
+        <div className="expense-chart-container">
+          {chartData.length === 0 ? (
+            <div className="expense-chart-empty">
+              No expense data available.
+            </div>
+          ) : (
+            <ResponsiveContainer
+              width="100%"
+              height={Math.max(220, chartData.length * 55)}
             >
-              <CartesianGrid
-                stroke="var(--border)"
-                strokeDasharray="3 3"
-                horizontal={false}
-              />
-
-              <XAxis
-                type="number"
-                tickFormatter={(value) => (value / 100).toLocaleString()}
-                tick={{ fill: "var(--muted)", fontSize: 12 }}
-                axisLine={false}
-                tickLine={false}
-              />
-
-              <YAxis
-                type="category"
-                dataKey="category"
-                width={110}
-                tick={{
-                  fill: "var(--primary)",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  fontFamily: "inherit",
+              <BarChart
+                data={chartData}
+                layout="vertical"
+                margin={{
+                  top: 5,
+                  right: 25,
+                  left: 5,
+                  bottom: 5,
                 }}
-                tickFormatter={formatCategoryName}
-                axisLine={false}
-                tickLine={false}
-              />
+              >
+                <CartesianGrid
+                  stroke="var(--border)"
+                  strokeDasharray="3 3"
+                  horizontal={false}
+                />
 
-              <Tooltip
-                cursor={false}
-                formatter={(value: number) => [
-                  formatRupees(Number(value)),
-                  "Expenses",
-                ]}
-              />
+                <XAxis
+                  type="number"
+                  tickFormatter={(value) => (value / 100).toLocaleString()}
+                  tick={{ fill: "var(--muted)", fontSize: 12 }}
+                  axisLine={false}
+                  tickLine={false}
+                />
 
-              <Bar
-                dataKey="total"
-                fill="var(--primary)"
-                radius={[0, 6, 6, 0]}
-                barSize={25}
-                activeBar={false}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        )}
+                <YAxis
+                  type="category"
+                  dataKey="category"
+                  width={110}
+                  tick={{
+                    fill: "var(--primary)",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    fontFamily: "inherit",
+                  }}
+                  tickFormatter={formatCategoryName}
+                  axisLine={false}
+                  tickLine={false}
+                />
+
+                <Tooltip
+                  cursor={false}
+                  formatter={(value: number) => [
+                    formatRupees(Number(value)),
+                    "Expenses",
+                  ]}
+                />
+
+                <Bar
+                  dataKey="total"
+                  fill="var(--primary)"
+                  radius={[0, 6, 6, 0]}
+                  barSize={25}
+                  activeBar={false}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
       </div>
 
       <div className="category-chart-card">
@@ -291,6 +295,27 @@ export function HorizontalChart() {
           )}
         </div>
       </div>
-    </div>
+
+      <div className="category-chart-card">
+        <div className="category-chart-header">
+          <div>
+            <h3 className="category-chart-title">6-Month Spending Trend</h3>
+            <p className="category-chart-description">
+              Monthly expenditure across the last 6 months
+            </p>
+          </div>
+        </div>
+
+        <div className="category-chart-container">
+          <div className="trend-chart-placeholder">
+            <p className="trend-chart-placeholder-title">Not enough data yet</p>
+            <p className="trend-chart-placeholder-text">
+              Add expenses across more dates and months to view your 6-month
+              spending trend.
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
