@@ -22,6 +22,7 @@ export type Categories = {
   color_hex: string | null;
   created_at: string;
   owner_id: string;
+  monthly_budget_cents: number;
 };
 
 export type AccountType =
@@ -67,6 +68,10 @@ export interface LedgerStore {
   addTransaction: (input: AddTransactionInput) => Promise<{ error: Error }>;
   addAccount: (name: AddAccountInput) => Promise<{ error: Error }>;
   addCategory: (name: SelectCategory) => Promise<{ error: Error }>;
+  updateCategoryBudget: (
+    id: string,
+    monthly_budget_cents: number,
+  ) => Promise<{ error: Error }>;
 }
 
 export type SelectCategory =

@@ -192,4 +192,30 @@ export const useLedgerStore = create<LedgerStore>()((set, get) => ({
     }
     return { error: null };
   },
+  updateCategoryBudget: async (id, monthly_budget_cents) => {
+    const { data: updatedCategory, error } = await supabase
+      .from("categories")
+      .update({ monthly_budget_cents })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      return { error };
+    }
+
+    const current = get().categories;
+    if (current.state === "loaded" && updatedCategory) {
+      set({
+        categories: {
+          state: "loaded",
+          data: current.data.map((c) =>
+            c.id === id ? (updatedCategory as Categories) : c,
+          ),
+        },
+      });
+    }
+
+    return { error: null };
+  },
 }));
