@@ -1,0 +1,260 @@
+:root {
+  --bg: #f7f3ea;
+  --surface: #ffffff;
+  --primary: #0f3d2e;
+  --primary-hover: #164e3a;
+  --accent: #c9a86a;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e8e0d5;
+  --input-bg: #fbfaf7;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+
+  --surface-subtle: #fbfaf7;
+  --accent-soft: rgba(201, 168, 106, 0.16);
+  --accent-border: rgba(201, 168, 106, 0.45);
+  --danger-border: rgba(220, 38, 38, 0.28);
+}
+
+/* Budget.css - LedgerPulse budget page */
+
+.budget-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+}
+
+/* Header */
+
+.budget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.budget-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+
+.budget-month-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-right: 8px;
+}
+
+.budget-month-input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+}
+
+.budget-month-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Overview */
+
+.budget-overview {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.budget-overview-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+}
+
+.budget-overview-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.budget-overview-stat {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+.budget-overview-stat:first-child,
+.budget-overview-stat:nth-child(2),
+.budget-overview-stat:nth-child(3) {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.budget-overview-bar,
+.category-card-bar {
+  height: 10px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.budget-overview-bar-fill,
+.category-card-bar-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.budget-overview-percent {
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 8px 0 0 0;
+  font-weight: 600;
+}
+
+/* Category list */
+
+.category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.category-item {
+  margin: 0;
+}
+
+.category-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.category-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.category-card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.category-card-stat {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.category-card-stat:first-child {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.category-card-percent {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Form + buttons */
+
+.category-card-edit,
+.category-card-save {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.category-card-edit:hover,
+.category-card-save:hover {
+  background: var(--primary-hover);
+}
+
+.category-card-cancel {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.category-card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.category-card-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.category-card-input {
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.category-card-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Status - uses your existing success / error */
+
+.category-card-percent:has(+ *) {
+  color: var(--text);
+}
