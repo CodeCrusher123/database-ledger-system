@@ -1,0 +1,47 @@
+/* Desktop - default */
+.mobile-layout-nav {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  /* Hide sidebar, show bottom nav */
+  .sidebar-container {
+    display: none;
+  }
+
+  .mobile-layout-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0 14px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    z-index: 100;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--muted);
+    padding: 6px 12px;
+  }
+
+  .mobile-nav-link.active {
+    color: var(--primary);
+  }
+
+  /* So last card isn't hidden behind bottom nav */
+  main {
+    padding-bottom: 110px;
+  }
+}

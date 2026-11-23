@@ -146,3 +146,14 @@
     opacity: 0.6;
   }
 }
+
+@media (max-width: 768px) {
+  .transaction-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .transaction-container table {
+    min-width: 600px; /* table keeps its width, scrolls inside */
+  }
+}

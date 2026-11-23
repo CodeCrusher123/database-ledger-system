@@ -3,6 +3,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { SideBar } from "../components/SideBar";
 import { useLedgerStore } from "../store/LedgerStore";
 import { useAuthStore } from "../store/AuthStore";
+import { MobileNav } from "../components/MobileNav";
+import "../styles/Layout.css";
 
 export function Layout() {
   const navigate = useNavigate();
@@ -65,6 +67,7 @@ export function Layout() {
           }}
         />
       </main>
+      <MobileNav />
     </div>
   );
 }

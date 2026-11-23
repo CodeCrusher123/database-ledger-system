@@ -70,6 +70,23 @@
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+.budget-month-input {
+  color-scheme: light;
+  accent-color: var(--primary);
+}
+
+/* The little calendar icon on the right */
+.budget-month-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  /* makes the icon darker green to match your theme */
+  filter: invert(18%) sepia(28%) saturate(800%) hue-rotate(110deg);
+}
+
+.budget-month-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 /* Overview */
 
 .budget-overview {
@@ -257,4 +274,67 @@
 
 .category-card-percent:has(+ *) {
   color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .budget-container {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .budget-title {
+    font-size: 20px;
+    font-weight: 600; /* not 700 */
+  }
+
+  .budget-overview {
+    padding: 14px 16px;
+  }
+
+  .budget-overview-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* This is the key fix */
+  .budget-overview-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .budget-overview-stat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 400; /* kill the bold */
+    margin: 0;
+  }
+
+  .stat-label {
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .stat-value {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .category-card {
+    padding: 14px;
+  }
+
+  .category-card-title {
+    font-size: 15px;
+    font-weight: 600; /* not 700 */
+  }
+
+  .category-card-stat {
+    font-weight: 400;
+    font-size: 13px;
+  }
 }
