@@ -114,14 +114,19 @@
   color: var(--muted);
   margin: 0;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
 }
 
-.budget-overview-stat:first-child,
-.budget-overview-stat:nth-child(2),
-.budget-overview-stat:nth-child(3) {
+.stat-label {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.stat-value {
   color: var(--text);
-  font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 17px;
 }
 
 .budget-overview-bar,

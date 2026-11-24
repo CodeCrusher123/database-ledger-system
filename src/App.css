@@ -12,10 +12,27 @@ body {
   color: #111;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  overscroll-behavior: none; /* stops iOS rubber-band bounce */
+}
+
+.layout,
+main {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
 /* --- Layout --- */
 .layout {
   display: flex;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .layout main {

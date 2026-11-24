@@ -41,6 +41,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100dvh;
   overflow-y: auto;
   flex-shrink: 0;
   color: var(--sidebar-text);

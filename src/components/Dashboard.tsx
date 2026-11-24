@@ -43,6 +43,8 @@ export function Dashboard() {
     navigate("/signin");
   }
 
+  const availableAccounts = accounts.state === "loaded" ? accounts.data : [];
+
   // Total balance: selected account OR all accounts
   const totalBalance = useMemo(() => {
     if (accounts.state !== "loaded") return 0;
@@ -65,6 +67,7 @@ export function Dashboard() {
     <main className="dashboard-main">
       <div className="dashboard-header">
         <h2>Dashboard</h2>
+
         <button
           type="button"
           className="signout-button"
@@ -96,6 +99,26 @@ export function Dashboard() {
               maximumFractionDigits: 2,
             })}
           </h1>
+          <div className="filter-container">
+            <label htmlFor="filter-account" className="filter-label">
+              Account
+            </label>
+            <select
+              id="filter-account"
+              value={selectedAccountId ?? ""}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSelectedAccountId(value === "" ? null : value);
+              }}
+            >
+              <option value="">All Accounts</option>
+              {availableAccounts.map((acc) => (
+                <option value={acc.id} key={acc.id}>
+                  {acc.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <p className="balance-meta">
             {selectedAccountId
               ? "Showing selected account"
