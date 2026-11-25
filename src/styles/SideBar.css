@@ -45,6 +45,7 @@
   overflow-y: auto;
   flex-shrink: 0;
   color: var(--sidebar-text);
+  align-self: flex-start;
 }
 
 .sidebar-container h2 {

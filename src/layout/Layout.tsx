@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { SideBar } from "../components/SideBar";
 import { useLedgerStore } from "../store/LedgerStore";
 import { useAuthStore } from "../store/AuthStore";
@@ -28,6 +28,16 @@ export function Layout() {
     if (status.state === "authenticated") fetchAll();
   }, [status, fetchAll]);
 
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  }
+
   const accountsMap = useMemo(() => {
     const map = new Map<string, string>();
     availableAccounts.forEach((acc) => {
@@ -46,6 +56,7 @@ export function Layout() {
 
   return (
     <div className="layout">
+      <ScrollToTop />
       <SideBar
         selectedAccountId={selectedAccountId}
         onSelectAccount={(id) =>
