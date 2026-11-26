@@ -1,0 +1,76 @@
+/* LedgerPulse - theme.css
+   Single source of truth for colors.
+   Import this once in main.tsx / App.tsx.
+   All component CSS files should use var(--...) only, no hex codes.
+*/
+
+/* ---------- LIGHT MODE - Champagne + Cream ---------- */
+:root {
+  --bg: #f7f3ea;
+  --surface: #ffffff;
+  --primary: #0f3d2e;
+  --primary-hover: #164e3a;
+  --accent: #c9a86a;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e8e0d5;
+  --input-bg: #fbfaf7;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+
+  --sidebar-text: #f7f3ea;
+  --sidebar-muted: rgba(247, 243, 234, 0.65);
+  --sidebar-border: rgba(201, 168, 106, 0.18);
+  --brand-accent: #e2c792;
+
+  --nav-hover-bg: rgba(247, 243, 234, 0.08);
+  --nav-active-bg: #f7f3ea;
+  --nav-active-text: #0f3d2e;
+  --nav-active-border: #c9a86a;
+
+  --account-bg: rgba(255, 255, 255, 0.04);
+  --account-hover-bg: rgba(201, 168, 106, 0.12);
+  --account-active-bg: rgba(201, 168, 106, 0.22);
+  --account-active-border: #c9a86a;
+  --account-active-text: #ffffff;
+}
+
+/* ---------- DARK MODE - Charcoal Night + Soft Gold ----------
+   Different feel from light mode on purpose:
+   - Base is charcoal, not green, so it reads as true dark mode
+   - Gold is softer / muted so it doesn't glow at night
+   - Green is kept only as a subtle tint, not the main background
+*/
+[data-theme="dark"] {
+  --bg: #0c0f0e;
+  --surface: #151a18;
+  --primary: #d8b978;
+  --primary-hover: #c9a86a;
+  --accent: #c9a86a;
+  --text: #ece7da;
+  --muted: #9a958a;
+  --border: rgba(236, 231, 218, 0.12);
+  --input-bg: #1c221f;
+  --error: #f87171;
+  --error-bg: rgba(220, 38, 38, 0.16);
+  --success: #4ade80;
+  --success-bg: rgba(21, 128, 61, 0.22);
+
+  --sidebar-text: #ece7da;
+  --sidebar-muted: rgba(236, 231, 218, 0.6);
+  --sidebar-border: rgba(201, 168, 106, 0.16);
+  --brand-accent: #d8b978;
+
+  --nav-hover-bg: rgba(236, 231, 218, 0.06);
+  --nav-active-bg: #d8b978;
+  --nav-active-text: #0c0f0e;
+  --nav-active-border: #d8b978;
+
+  --account-bg: rgba(236, 231, 218, 0.04);
+  --account-hover-bg: rgba(216, 185, 120, 0.1);
+  --account-active-bg: rgba(216, 185, 120, 0.18);
+  --account-active-border: #d8b978;
+  --account-active-text: #ffffff;
+}
