@@ -19,12 +19,11 @@ import {
 } from "recharts";
 
 const COLORS = [
-  "var(--primary)",
-  "var(--accent)",
-  "#779b87",
-  "#d6b9a0",
-  "#8b9daf",
-  "#b5a6c9",
+  "var(--chart-1)",
+  "var(--chart-2)",
+  "var(--chart-3)",
+  "var(--chart-4)",
+  "var(--chart-5)",
 ];
 
 const formatCategoryName = (name: string) =>

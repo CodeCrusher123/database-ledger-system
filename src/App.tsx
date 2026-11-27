@@ -9,6 +9,7 @@ import { TransactionsPage } from "./components/Transactions";
 import { Analytics } from "./components/Analytics";
 import { Budget } from "./components/Budget";
 import "./App.css";
+import "./styles/Theme.css";
 import { useEffect } from "react";
 import { Layout } from "./layout/Layout";
 

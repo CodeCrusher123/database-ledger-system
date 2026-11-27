@@ -32,8 +32,8 @@ export function Analytics() {
 
   return (
     <section className="analysis-page" aria-labelledby="analysis-title">
-      <header className="analysis-header">
-        <h2 id="analysis-title" className="analysis-title">
+      <header className="page-header">
+        <h2 id="analysis-title" className="page-title">
           Analysis
         </h2>
 

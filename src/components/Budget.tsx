@@ -62,20 +62,23 @@ export function Budget() {
 
   return (
     <section className="budget-container" aria-labelledby="budget-title">
-      <header className="budget-header">
-        <h2 id="budget-title" className="budget-title">
-          Monthly Budget
-        </h2>
-        <label htmlFor="budget-month" className="budget-month-label">
-          Month
-        </label>
-        <input
-          id="budget-month"
-          className="budget-month-input"
-          type="month"
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        />
+      <header className="page-header">
+        <div>
+          <h2 id="budget-title" className="page-title">
+            Monthly Budget
+          </h2>
+          <p className="page-subtitle">Month</p>
+        </div>
+
+        <div className="budget-month-wrap">
+          <input
+            id="budget-month"
+            className="budget-month-input"
+            type="month"
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+          />
+        </div>
       </header>
       {hasDataForMonth ? (
         <>

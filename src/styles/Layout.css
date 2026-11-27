@@ -1,6 +1,40 @@
+html,
+body,
+#root {
+  background: var(--bg);
+  color: var(--text);
+}
+
+main {
+  background: var(--bg);
+  min-height: 100vh;
+}
+
 /* Desktop - default */
 .mobile-layout-nav {
   display: none;
+}
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  margin: 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 /* Mobile */
@@ -24,12 +58,12 @@
     align-items: center;
     gap: 0;
     padding: 10px 6px;
-    background: rgba(255, 255, 255, 0.72);
+    background: var(--glass-bg);
     backdrop-filter: blur(12px) saturate(160%);
     -webkit-backdrop-filter: blur(12px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
-    box-shadow: 0 12px 32px rgba(15, 61, 46, 0.18);
+    box-shadow: 0 12px 32px var(--glass-shadow);
     z-index: 100;
   }
 
@@ -44,13 +78,13 @@
     min-width: 0;
     border-radius: 16px;
     overflow: visible;
-    touch-action: manipulation; /* kills iOS 300ms tap delay */
+    touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     user-select: none;
     transition:
       background 0.12s ease,
-      transform 0.12s ease; /* faster, was 0.25s */
+      transform 0.12s ease;
   }
 
   .mobile-nav-link svg {
@@ -61,10 +95,8 @@
 
   .mobile-nav-link.active {
     background: var(--primary);
-    color: #ffffff;
-    transform: scale(
-      0.92
-    ); /* instant feedback — you feel the tap immediately */
+    color: var(--mobile-active-text);
+    transform: scale(0.92);
   }
 
   .mobile-nav-link span {
@@ -77,7 +109,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  /* So last card isn't hidden behind bottom nav */
+
+  .page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 4px 0 0;
+  }
+
   main {
     padding-bottom: 110px;
   }

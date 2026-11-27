@@ -1,24 +1,3 @@
-:root {
-  --bg: #f7f3ea;
-  --surface: #ffffff;
-  --primary: #0f3d2e;
-  --primary-hover: #164e3a;
-  --accent: #c9a86a;
-  --text: #1a1a1a;
-  --muted: #6b7280;
-  --border: #e8e0d5;
-  --input-bg: #fbfaf7;
-  --error: #dc2626;
-  --error-bg: #fef2f2;
-  --success: #15803d;
-  --success-bg: #f0fdf4;
-
-  --surface-subtle: #fbfaf7;
-  --accent-soft: rgba(201, 168, 106, 0.16);
-  --accent-border: rgba(201, 168, 106, 0.45);
-  --danger-border: rgba(220, 38, 38, 0.28);
-}
-
 /* --- Dashboard Main --- */
 .dashboard-main {
   flex: 1;
@@ -30,23 +9,12 @@
   color: var(--text);
 }
 
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.dashboard-header h2 {
-  margin: 0;
-  font-family: "Fraunces", serif;
-  font-size: 26px;
-  color: var(--primary);
-}
-
 .signout-button {
   display: inline-flex;
   flex-direction: row;
   justify-content: center;
+  flex-shrink: 0;
+  white-space: nowrap;
   align-items: center;
   gap: 7px;
   padding: 8px 14px;
@@ -88,11 +56,16 @@
 
 .filter-container select {
   padding: 8px 12px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--dropdown-border);
   border-radius: 8px;
-  background: var(--surface);
+  background: var(--dropdown-bg);
+  color: var(--dropdown-text);
   cursor: pointer;
   font-size: 16px;
+}
+
+.filter-container select:hover {
+  background: var(--dropdown-hover-bg);
 }
 
 .card {

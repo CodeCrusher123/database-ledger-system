@@ -170,10 +170,14 @@ export function TransactionsPage() {
       aria-labelledby="transactions-title"
     >
       {/*Top Header section*/}
-      <header className="transactions-header">
+      <header className="page-header">
         <div>
-          <h2 id="transactions-title">Transactions</h2>
-          <p>Showing {transactionsFilter.length} transactions</p>
+          <h2 id="transactions-title" className="page-title">
+            Transactions
+          </h2>
+          <p className="page-subtitle">
+            Showing {transactionsFilter.length} transactions
+          </p>
         </div>
         {/*Placeholder for Transaction button*/}
         <button type="button">Add Transaction</button>

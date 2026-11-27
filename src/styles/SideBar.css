@@ -1,38 +1,6 @@
-:root {
-  --bg: #f7f3ea;
-  --surface: #ffffff;
-  --primary: #0f3d2e;
-  --primary-hover: #164e3a;
-  --accent: #c9a86a;
-  --text: #1a1a1a;
-  --muted: #6b7280;
-  --border: #e8e0d5;
-  --input-bg: #fbfaf7;
-  --error: #dc2626;
-  --error-bg: #fef2f2;
-  --success: #15803d;
-  --success-bg: #f0fdf4;
-
-  --sidebar-text: #f7f3ea;
-  --sidebar-muted: rgba(247, 243, 234, 0.65);
-  --sidebar-border: rgba(201, 168, 106, 0.18);
-  --brand-accent: #e2c792;
-
-  --nav-hover-bg: rgba(247, 243, 234, 0.08);
-  --nav-active-bg: #f7f3ea;
-  --nav-active-text: #0f3d2e;
-  --nav-active-border: #c9a86a;
-
-  --account-bg: rgba(255, 255, 255, 0.04);
-  --account-hover-bg: rgba(201, 168, 106, 0.12);
-  --account-active-bg: rgba(201, 168, 106, 0.22);
-  --account-active-border: #c9a86a;
-  --account-active-text: #ffffff;
-}
-
 .sidebar-container {
   width: 260px;
-  background: var(--primary);
+  background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border);
   padding: 20px;
   display: flex;

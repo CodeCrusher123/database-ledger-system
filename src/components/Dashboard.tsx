@@ -64,9 +64,14 @@ export function Dashboard() {
   const isLoading = accounts.state === "idle" || accounts.state === "loading";
 
   return (
-    <main className="dashboard-main">
-      <div className="dashboard-header">
-        <h2>Dashboard</h2>
+    <main className="dashboard-main" aria-labelledby="dashboard-title">
+      <div className="page-header">
+        <div>
+          <h2 id="dashboard-title" className="page-title">
+            Dashboard
+          </h2>
+          <p className="page-subtitle">Your overview for today</p>
+        </div>
 
         <button
           type="button"

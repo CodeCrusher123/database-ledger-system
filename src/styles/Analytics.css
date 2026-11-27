@@ -1,24 +1,3 @@
-:root {
-  --bg: #f7f3ea;
-  --surface: #ffffff;
-  --primary: #0f3d2e;
-  --primary-hover: #164e3a;
-  --accent: #c9a86a;
-  --text: #1a1a1a;
-  --muted: #6b7280;
-  --border: #e8e0d5;
-  --input-bg: #fbfaf7;
-  --error: #dc2626;
-  --error-bg: #fef2f2;
-  --success: #15803d;
-  --success-bg: #f0fdf4;
-
-  --surface-subtle: #fbfaf7;
-  --accent-soft: rgba(201, 168, 106, 0.16);
-  --accent-border: rgba(201, 168, 106, 0.45);
-  --danger-border: rgba(220, 38, 38, 0.28);
-}
-
 .analysis-page {
   display: flex;
   flex-direction: column;
@@ -27,21 +6,15 @@
   background-color: var(--bg);
   color: var(--text);
 }
-
-.analysis-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+/* Analysis header stacks: title on top, filters below */
+.analysis-page .page-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 
-.analysis-title {
-  margin: 0;
-  font-size: 1.625rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--primary);
+.analysis-page .account-filter {
+  width: 100%;
 }
 
 .account-filter {
@@ -67,20 +40,23 @@
 }
 
 .account-filter-btn:hover {
-  border-color: var(--accent-border);
+  border-color: var(--accent);
   background-color: var(--surface-subtle);
   color: var(--text);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .account-filter-btn.is-active {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: var(--surface);
+  background-color: var(--surface-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
 }
 
 .account-filter-btn.is-active:hover {
-  background-color: var(--primary-hover);
-  border-color: var(--primary-hover);
+  background-color: var(--surface-subtle);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .kpi-grid {

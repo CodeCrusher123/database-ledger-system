@@ -8,6 +8,7 @@
 :root {
   --bg: #f7f3ea;
   --surface: #ffffff;
+  --surface-subtle: #fbfaf7;
   --primary: #0f3d2e;
   --primary-hover: #164e3a;
   --accent: #c9a86a;
@@ -20,6 +21,7 @@
   --success: #15803d;
   --success-bg: #f0fdf4;
 
+  --sidebar-bg: #0f3d2e;
   --sidebar-text: #f7f3ea;
   --sidebar-muted: rgba(247, 243, 234, 0.65);
   --sidebar-border: rgba(201, 168, 106, 0.18);
@@ -35,6 +37,22 @@
   --account-active-bg: rgba(201, 168, 106, 0.22);
   --account-active-border: #c9a86a;
   --account-active-text: #ffffff;
+
+  --dropdown-bg: #ffffff;
+  --dropdown-text: #1a1a1a;
+  --dropdown-border: #e8e0d5;
+  --dropdown-hover-bg: #f7f3ea;
+
+  --chart-1: #0f3d2e;
+  --chart-2: #c9a86a;
+  --chart-3: #7fb069;
+  --chart-4: #e07a5f;
+  --chart-5: #a8a29e;
+
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: rgba(15, 61, 46, 0.18);
+  --mobile-active-text: #ffffff;
 }
 
 /* ---------- DARK MODE - Charcoal Night + Soft Gold ----------
@@ -46,6 +64,7 @@
 [data-theme="dark"] {
   --bg: #0c0f0e;
   --surface: #151a18;
+  --surface-subtle: #1e2421;
   --primary: #d8b978;
   --primary-hover: #c9a86a;
   --accent: #c9a86a;
@@ -58,6 +77,7 @@
   --success: #4ade80;
   --success-bg: rgba(21, 128, 61, 0.22);
 
+  --sidebar-bg: #0a0d0c;
   --sidebar-text: #ece7da;
   --sidebar-muted: rgba(236, 231, 218, 0.6);
   --sidebar-border: rgba(201, 168, 106, 0.16);
@@ -73,4 +93,20 @@
   --account-active-bg: rgba(216, 185, 120, 0.18);
   --account-active-border: #d8b978;
   --account-active-text: #ffffff;
+
+  --dropdown-bg: #232b27;
+  --dropdown-text: #ece7da;
+  --dropdown-border: rgba(236, 231, 218, 0.14);
+  --dropdown-hover-bg: #2b342f;
+
+  --chart-1: #4ade80;
+  --chart-2: #d8b978;
+  --chart-3: #7fb069;
+  --chart-4: #f08080;
+  --chart-5: #9a958a;
+
+  --glass-bg: rgba(21, 26, 24, 0.72);
+  --glass-border: rgba(236, 231, 218, 0.14);
+  --glass-shadow: rgba(0, 0, 0, 0.45);
+  --mobile-active-text: #0c0f0e;
 }
