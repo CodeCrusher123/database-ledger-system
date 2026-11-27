@@ -4,6 +4,7 @@ import { SideBar } from "../components/SideBar";
 import { useLedgerStore } from "../store/LedgerStore";
 import { useAuthStore } from "../store/AuthStore";
 import { MobileNav } from "../components/MobileNav";
+import { Sun, Moon } from "lucide-react";
 import "../styles/Layout.css";
 
 export function Layout() {
@@ -20,6 +21,35 @@ export function Layout() {
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(
     null,
   );
+
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Lock background scroll when open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("ledgerpulse-theme") as
+      | "light"
+      | "dark"
+      | null;
+    const initial = saved ?? "light";
+    setTheme(initial);
+    document.documentElement.dataset.theme = initial;
+  }, []);
+
+  function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("ledgerpulse-theme", next);
+  }
+
   useEffect(() => {
     if (status.state === "unauthenticated") navigate("/signin");
   }, [navigate, status]);

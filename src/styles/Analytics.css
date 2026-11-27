@@ -24,14 +24,14 @@
   gap: 0.5rem;
 }
 
-.account-filter-btn {
+.account-filter-btn.analysis-filter-btn {
   padding: 0.45rem 0.9rem;
   font-size: 0.875rem;
   font-weight: 500;
   border-radius: 999px;
   border: 1px solid var(--border);
   background-color: var(--surface);
-  color: var(--muted);
+  color: var(--text);
   cursor: pointer;
   transition:
     background-color 0.18s ease,
@@ -39,21 +39,21 @@
     border-color 0.18s ease;
 }
 
-.account-filter-btn:hover {
+.account-filter-btn.analysis-filter-btn:hover {
   border-color: var(--accent);
   background-color: var(--surface-subtle);
   color: var(--text);
   box-shadow: 0 0 0 1px var(--accent);
 }
 
-.account-filter-btn.is-active {
+.account-filter-btn.is-active.analysis-filter-btn {
   background-color: var(--surface-subtle);
   border-color: var(--accent);
   color: var(--accent);
   box-shadow: 0 0 0 1px var(--accent);
 }
 
-.account-filter-btn.is-active:hover {
+.account-filter-btn.is-active.analysis-filter-btn:hover {
   background-color: var(--surface-subtle);
   border-color: var(--accent);
   color: var(--accent);
@@ -114,6 +114,17 @@
 }
 
 /* Shared Chart Cards */
+.expense-chart-container:focus,
+.expense-chart-container svg:focus,
+.expense-chart-container svg *:focus,
+.category-chart-container:focus,
+.category-chart-container svg:focus,
+.category-chart-container svg *:focus,
+.recharts-wrapper:focus,
+.recharts-sector:focus,
+.recharts-sector:focus-visible {
+  outline: none;
+}
 
 .expense-chart-card,
 .category-chart-card {
@@ -194,6 +205,13 @@
 
 .donut-sector.is-dimmed {
   opacity: 0.45;
+}
+.donut-sector:focus,
+.donut-sector:focus-visible,
+.donut-chart-wrapper:focus,
+.donut-chart-wrapper svg:focus,
+.donut-chart-wrapper svg *:focus {
+  outline: none;
 }
 
 .donut-center-label {

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, type Dispatch, type SetStateAction } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { LogOut } from "lucide-react";
 import { useAuthStore } from "../store/AuthStore";
 import { useLedgerStore } from "../store/LedgerStore";
 import "../styles/Dashboard.css";
@@ -24,7 +23,6 @@ export function Dashboard() {
   const { accounts, transactions, selectedAccountId, setSelectedAccountId } =
     useOutletContext<OutletContextType>();
   const status = useAuthStore((s) => s.status);
-  const signOut = useAuthStore((s) => s.signOut);
   const navigate = useNavigate();
 
   const getBalance = useLedgerStore((s) => s.getBalance);
@@ -37,11 +35,6 @@ export function Dashboard() {
   useEffect(() => {
     if (status.state === "authenticated") fetchAll();
   }, [status, fetchAll]);
-
-  async function handleSignOut() {
-    await signOut();
-    navigate("/signin");
-  }
 
   const availableAccounts = accounts.state === "loaded" ? accounts.data : [];
 
@@ -72,15 +65,6 @@ export function Dashboard() {
           </h2>
           <p className="page-subtitle">Your overview for today</p>
         </div>
-
-        <button
-          type="button"
-          className="signout-button"
-          onClick={handleSignOut}
-        >
-          <LogOut size={15} strokeWidth={2} aria-hidden="true" />
-          <span>Sign Out</span>
-        </button>
       </div>
 
       {/* 1. Total Balance */}

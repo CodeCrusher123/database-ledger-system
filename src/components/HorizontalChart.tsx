@@ -268,7 +268,7 @@ export function HorizontalChart() {
 
                   <Tooltip
                     wrapperClassName="category-chart-tooltip"
-                    formatter={(value, name) => [
+                    formatter={(value: number, name) => [
                       formatRupees(Number(value)),
                       formatCategoryName(String(name ?? "")),
                     ]}

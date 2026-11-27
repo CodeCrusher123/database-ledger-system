@@ -40,7 +40,7 @@ export function Analytics() {
         <nav className="account-filter" aria-label="Filter by account">
           <button
             type="button"
-            className={`account-filter-btn ${selectedAccountId === null ? "is-active" : ""}`}
+            className={`account-filter-btn ${selectedAccountId === null ? "is-active" : ""} analysis-filter-btn`}
             onClick={() => setSelectedAccountId(null)}
           >
             All Accounts
@@ -52,7 +52,7 @@ export function Analytics() {
               <button
                 key={acc.id}
                 type="button"
-                className={`account-filter-btn ${isSelected ? "is-active" : ""}`}
+                className={`account-filter-btn ${isSelected ? "is-active" : ""} analysis-filter-btn`}
                 aria-pressed={isSelected}
                 onClick={() => handleAccountSelect(acc.id)}
               >
