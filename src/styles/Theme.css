@@ -53,6 +53,23 @@
   --glass-border: rgba(255, 255, 255, 0.6);
   --glass-shadow: rgba(15, 61, 46, 0.18);
   --mobile-active-text: #ffffff;
+
+  /* ---------- Footer Actions - Amber & Burnt Orange ---------- */
+
+  --footer-btn-bg: #d99a38;
+  --footer-btn-border: #c88a2e;
+
+  --theme-btn-icon: #183b2e;
+  --theme-btn-hover-bg: #e8ad50;
+  --theme-btn-hover-border: #f0bd69;
+  --theme-btn-glow: rgba(217, 154, 56, 0.25);
+
+  --signout-btn-bg: #b96b43;
+  --signout-btn-text: #fff1db;
+  --signout-btn-border: #a95d38;
+  --signout-btn-hover-bg: #ca7950;
+  --signout-btn-hover-border: #d98b60;
+  --signout-btn-glow: rgba(185, 107, 67, 0.25);
 }
 
 /* ---------- DARK MODE - Charcoal Night + Soft Gold ----------
@@ -109,4 +126,21 @@
   --glass-border: rgba(236, 231, 218, 0.14);
   --glass-shadow: rgba(0, 0, 0, 0.45);
   --mobile-active-text: #0c0f0e;
+
+  /* ---------- Footer Actions - Deep Amber & Terracotta ---------- */
+
+  --footer-btn-bg: #704c25;
+  --footer-btn-border: #936a36;
+
+  --theme-btn-icon: #ffe0a3;
+  --theme-btn-hover-bg: #89602d;
+  --theme-btn-hover-border: #c18b43;
+  --theme-btn-glow: rgba(225, 166, 75, 0.22);
+
+  --signout-btn-bg: #633b30;
+  --signout-btn-text: #f5c6ac;
+  --signout-btn-border: #87513d;
+  --signout-btn-hover-bg: #794838;
+  --signout-btn-hover-border: #b87555;
+  --signout-btn-glow: rgba(198, 119, 83, 0.22);
 }

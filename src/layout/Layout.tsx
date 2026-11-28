@@ -3,8 +3,8 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { SideBar } from "../components/SideBar";
 import { useLedgerStore } from "../store/LedgerStore";
 import { useAuthStore } from "../store/AuthStore";
+import { useThemeStore } from "../store/ThemeStore";
 import { MobileNav } from "../components/MobileNav";
-import { Sun, Moon } from "lucide-react";
 import "../styles/Layout.css";
 
 export function Layout() {
@@ -14,6 +14,7 @@ export function Layout() {
   const transactions = useLedgerStore((s) => s.transactions);
   const categories = useLedgerStore((s) => s.categories);
   const fetchAll = useLedgerStore((s) => s.fetchAll);
+  const theme = useThemeStore((s) => s.theme);
   const availableAccounts = accounts.state === "loaded" ? accounts.data : [];
   const availableCategories =
     categories.state === "loaded" ? categories.data : [];
@@ -22,33 +23,9 @@ export function Layout() {
     null,
   );
 
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Lock background scroll when open
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("ledgerpulse-theme") as
-      | "light"
-      | "dark"
-      | null;
-    const initial = saved ?? "light";
-    setTheme(initial);
-    document.documentElement.dataset.theme = initial;
-  }, []);
-
-  function toggleTheme() {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("ledgerpulse-theme", next);
-  }
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   useEffect(() => {
     if (status.state === "unauthenticated") navigate("/signin");

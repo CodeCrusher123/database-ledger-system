@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useLedgerStore } from "../store/LedgerStore";
 import type { AccountType } from "../utilities/LedgerTypes";
+import { HamburgerMenu } from "./Hamburger";
 import "../styles/SideBar.css";
 
 export const menuArray = [
@@ -114,6 +115,9 @@ export function SideBar({ selectedAccountId, onSelectAccount }: SideBarProps) {
           selectedAccountId={selectedAccountId}
           onSelectAccount={onSelectAccount}
         />
+      </div>
+      <div className="sidebar-footer">
+        <HamburgerMenu />
       </div>
     </div>
   );
