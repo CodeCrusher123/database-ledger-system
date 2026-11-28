@@ -92,11 +92,11 @@ export function HorizontalChart() {
     return (
       <Sector
         {...props}
-        outerRadius={
-          isActive ? (props.outerRadius ?? 100) + 5 : props.outerRadius
-        }
+        outerRadius={props.outerRadius}
         fill={COLORS[props.index % COLORS.length]}
-        className={`donut-sector ${isDimmed ? "is-dimmed" : ""}`}
+        className={`donut-sector ${isActive ? "is-active" : ""} ${
+          isDimmed ? "is-dimmed" : ""
+        }`}
       />
     );
   };
@@ -216,6 +216,15 @@ export function HorizontalChart() {
                     formatRupees(Number(value)),
                     "Expenses",
                   ]}
+                  contentStyle={{
+                    backgroundColor: "var(--tooltip-bg)",
+                    border: "1px solid var(--tooltip-border)",
+                    borderRadius: "10px",
+                    color: "var(--tooltip-text)",
+                    backdropFilter: "blur(8px)",
+                    boxShadow: "var(--tooltip-shadow)",
+                  }}
+                  labelStyle={{ color: "var(--tooltip-text)" }}
                 />
 
                 <Bar
@@ -272,9 +281,17 @@ export function HorizontalChart() {
                       formatRupees(Number(value)),
                       formatCategoryName(String(name ?? "")),
                     ]}
+                    contentStyle={{
+                      backgroundColor: "var(--tooltip-bg)",
+                      border: "1px solid var(--tooltip-border)",
+                      borderRadius: "10px",
+                      color: "var(--tooltip-text)",
+                      backdropFilter: "blur(8px)",
+                      boxShadow: "var(--tooltip-shadow)",
+                    }}
                   />
 
-                  <Legend content={renderDonutLegend} verticalAlign="bottom" />
+                  <Legend content={renderDonutLegend} position="bottom" />
                 </PieChart>
               </ResponsiveContainer>
 

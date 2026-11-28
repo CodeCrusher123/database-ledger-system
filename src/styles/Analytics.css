@@ -200,10 +200,22 @@
 
 .donut-sector {
   cursor: pointer;
-  transition: opacity 180ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.donut-sector.is-active {
+  transform: scale(1.04);
 }
 
 .donut-sector.is-dimmed {
+  opacity: 0.78;
+}
+/* Dark mode: preserve your existing appearance */
+[data-theme="dark"] .donut-sector.is-dimmed {
   opacity: 0.45;
 }
 .donut-sector:focus,
@@ -282,6 +294,10 @@
 }
 
 .donut-legend-item.is-dimmed {
+  opacity: 0.78;
+}
+
+[data-theme="dark"] .donut-legend-item.is-dimmed {
   opacity: 0.5;
 }
 

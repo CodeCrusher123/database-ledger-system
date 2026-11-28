@@ -23,16 +23,13 @@ export function HamburgerMenu() {
         aria-label="Toggle theme"
       >
         {theme === "light" ? (
-          <Moon size={15} strokeWidth={2} aria-hidden="true" />
+          <Moon size={17} strokeWidth={2} aria-hidden="true" />
         ) : (
-          <Sun size={15} strokeWidth={2} aria-hidden="true" />
+          <Sun size={17} strokeWidth={2} aria-hidden="true" />
         )}
+        <span>{theme === "light" ? "Dark Mode" : "Default Mode"}</span>
       </button>
-      <button
-        type="button"
-        className="signout-button logout-button"
-        onClick={handleSignOut}
-      >
+      <button type="button" className="signout-button" onClick={handleSignOut}>
         <LogOut size={15} strokeWidth={2} aria-hidden="true" />
         <span>Sign Out</span>
       </button>

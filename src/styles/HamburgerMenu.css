@@ -1,79 +1,78 @@
-/* --- HamburgerMenu - theme + signout row --- */
+/* HamburgerMenu.css */
+
 .hamburger-menu {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.theme-toggler {
-  display: inline-flex;
+.hamburger-menu button {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  background: var(--footer-btn-bg);
-  color: var(--theme-btn-icon);
-  border: 1px solid var(--footer-btn-border);
-  border-radius: 12px;
+  justify-content: flex-start;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 14px;
+
+  border: none;
+  border-radius: 11px;
+
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+
   cursor: pointer;
+
   transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    background-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* Theme Toggle */
+.theme-toggler {
+  background: #385ccb;
+  box-shadow: 0 3px 7px rgba(56, 92, 203, 0.2);
 }
 
 .theme-toggler:hover {
-  background: var(--theme-btn-hover-bg);
-  border-color: var(--theme-btn-hover-border);
-  box-shadow: 0 0 14px var(--theme-btn-glow);
-  transform: translateY(-1px);
+  background: #2d4fb8;
+  box-shadow: 0 5px 12px rgba(56, 92, 203, 0.28);
 }
 
-.theme-toggler svg {
-  color: var(--theme-btn-icon);
-  filter: drop-shadow(0 0 2px var(--theme-btn-glow));
-  transition: color 0.2s ease;
+/* Sign Out */
+.signout-button {
+  background: #c74740;
+  box-shadow: 0 3px 7px rgba(199, 71, 64, 0.2);
 }
 
-.hamburger-menu .signout-button {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  height: 38px;
-  padding: 0 14px;
-  background: var(--signout-btn-bg);
-  color: var(--signout-btn-text);
-  border: 1px solid var(--signout-btn-border);
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  white-space: nowrap;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+.signout-button:hover {
+  background: #b33a34;
+  box-shadow: 0 5px 12px rgba(199, 71, 64, 0.28);
 }
 
-.hamburger-menu .signout-button:hover {
-  background: var(--signout-btn-hover-bg);
-  border-color: var(--signout-btn-hover-border);
-  box-shadow: 0 0 14px var(--signout-btn-glow);
-  transform: translateY(-1px);
+/* Interaction */
+.hamburger-menu button:active {
+  transform: scale(0.97);
 }
 
-.hamburger-menu .signout-button svg {
-  color: var(--signout-btn-text);
-  transition: color 0.2s ease;
+.hamburger-menu button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
 }
 
-.hamburger-menu .signout-button:hover svg {
-  color: var(--signout-btn-text);
+.hamburger-menu button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hamburger-menu button {
+    transition: none;
+  }
 }
